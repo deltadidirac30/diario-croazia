@@ -381,20 +381,24 @@
   .card.beach .card-kind{color:var(--sea-600);}
   .card-name{display:block; font-family:'Vollkorn',serif; font-weight:700; font-size:20px; letter-spacing:-.01em; line-height:1.25;}
 
+  .score{display:flex; flex-direction:column; align-items:center; gap:5px; flex:0 0 auto;}
   .ring{
-    position:relative; width:60px; height:60px; flex:0 0 auto; border-radius:50%;
+    position:relative; width:58px; height:58px; border-radius:50%;
     background:conic-gradient(var(--rc) calc(var(--p) * 1%), rgba(12,42,52,.09) 0);
     display:grid; place-items:center;
   }
   .ring::after{content:""; position:absolute; inset:5px; border-radius:50%; background:var(--surface);}
-  .ring > *{max-width:100%;}
   .ring .val{
-    position:relative; z-index:1; font-family:'JetBrains Mono',monospace;
-    font-weight:600; font-size:15px; color:var(--sea-900); line-height:1;
+    grid-area:1/1; position:relative; z-index:1;
+    display:flex; align-items:center; justify-content:center;
+    width:100%; height:100%;
+    font-family:'JetBrains Mono',monospace;
+    font-weight:600; font-size:16px; color:var(--sea-900); line-height:1;
+    padding-bottom:1px;   /* compensa il gap ottico dei numeri monospace */
   }
-  .ring .lbl{
-    position:relative; z-index:1; font-size:7px; letter-spacing:.04em; text-transform:uppercase;
-    color:var(--muted); margin-top:2px; line-height:1;
+  .score .lbl{
+    font-size:8.5px; letter-spacing:.11em; text-transform:uppercase;
+    color:var(--muted); line-height:1;
   }
 
   .rows{padding:8px 22px 16px;}
@@ -502,8 +506,9 @@
     .trip-cover-txt{padding:20px;}
     .trip-meta{padding:16px 20px 18px;}
     .day-badge{width:46px; height:46px; font-size:17px; border-radius:15px;}
-    .ring{width:56px; height:56px;}
-    .ring .val{font-size:14px;}
+    .ring{width:54px; height:54px;}
+    .ring .val{font-size:15px;}
+    .score .lbl{font-size:8px;}
     .card-name{font-size:18px;}
     .brand{font-size:15px;}
     .stat .v{font-size:21px;}
@@ -678,7 +683,10 @@ const TRIPS = [
         date:  {it:"13 agosto", en:"13 August"},
         short: {it:"13 ago",    en:"13 Aug"},
         place: {it:"Vis, Croazia", en:"Vis, Croatia"},
-        photos: [],
+        photos: [
+          {src:"assets/photos/giorno13-1.jpg", cap:{it:"La baia di Kamenice, fondale visibile fino al largo", en:"Kamenice bay — you can see the bottom far out"}},
+          {src:"assets/photos/giorno13-2.jpg", cap:{it:"Cena da Pizzeria Karijola: promossa", en:"Dinner at Pizzeria Karijola: approved"}}
+        ],
         journal: null,
         cards: [
           { kind:"food", name:"Pizzeria Karijola", rows:[
@@ -918,8 +926,10 @@ function card(c){
   const ringColor = c.kind==='food' ? 'var(--coral-600)' : c.kind==='beach' ? 'var(--sea-500)' : 'var(--sea-500)';
 
   const ring = avg==null ? '' : `
-    <div class="ring" style="--p:${avg*10}; --rc:${ringColor}">
-      <span class="val">${fmt(Math.round(avg*10)/10)}</span>
+    <div class="score">
+      <div class="ring" style="--p:${avg*10}; --rc:${ringColor}">
+        <span class="val">${fmt(Math.round(avg*10)/10)}</span>
+      </div>
       <span class="lbl">${esc(t(UI.media))}</span>
     </div>`;
 
