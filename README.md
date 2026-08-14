@@ -84,6 +84,17 @@ tramonto: {it:"Tramonto", en:"Sunset"},
 
 e poi usarla: `{k:"tramonto", ema:9, viti:10}`.
 
+### Un commento sul posto
+
+Un pensiero breve su tutta la scheda (ristorante o spiaggia), che compare in un
+riquadro colorato sotto ai voti:
+
+```js
+{ kind:"beach", name:"Nome", rows:[ ... ],
+  comment:{it:"Due righe in prima persona.", en:"A line or two, first person."}
+}
+```
+
 ### Una nota su un singolo voto
 
 ```js

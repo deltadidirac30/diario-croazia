@@ -6,6 +6,12 @@
 <title>Il nostro diario di viaggio</title>
 <meta name="description" content="Diario di viaggio di Ema e Viti — ristoranti e spiagge, valutati giorno per giorno.">
 <meta name="theme-color" content="#06323f">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Il nostro diario di viaggio">
+<meta property="og:description" content="Croazia, isola di Vis: un ristorante e una spiaggia alla volta, votati ogni sera in due.">
+<meta property="og:url" content="https://deltadidirac30.github.io/diario-croazia/">
+<meta property="og:image" content="https://deltadidirac30.github.io/diario-croazia/assets/photos/giorno12-2.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
 
 <style>
@@ -430,6 +436,13 @@
   }
 
   .card-body{padding:18px 22px 20px; font-size:15.5px; line-height:1.68; color:var(--ink-soft);}
+  .card-comment{
+    margin:4px 22px 20px; padding:13px 17px;
+    border-radius:14px; border:1px solid var(--line-2);
+    font-family:'Vollkorn',serif; font-size:15.5px; line-height:1.62; color:#26454f;
+  }
+  .card.beach .card-comment{background:rgba(95,212,207,.10); border-color:rgba(13,127,146,.15);}
+  .card.food  .card-comment{background:rgba(255,138,104,.09); border-color:rgba(226,87,58,.15);}
   .card-body + .card-foot{margin-top:-8px;}
   .card-foot{
     padding:0 22px 18px; font-size:12.5px; font-style:italic; color:var(--muted); line-height:1.5;
@@ -502,6 +515,7 @@
     .card-top{padding:16px 16px; gap:11px;}
     .rows{padding:6px 16px 14px;}
     .card-body,.card-foot{padding-left:16px; padding-right:16px;}
+    .card-comment{margin-left:16px; margin-right:16px; font-size:15px;}
     .journal{padding:19px 18px 19px 21px; font-size:16px;}
     .trip-cover-txt{padding:20px;}
     .trip-meta{padding:16px 20px 18px;}
@@ -589,7 +603,9 @@ const TRIPS = [
             {k:"landscape",  ema:7,   viti:7},
             {k:"people",     ema:5,   viti:5},
             {k:"facilities", ema:8,   viti:7.5}
-          ]}
+          ],
+          comment:{it:"Comodissima, ci arriviamo a piedi dal paese. Ma è la spiaggia di tutti: dopo le undici non trovi più posto.",
+                   en:"Very handy — we walk there from town. But it's everyone's beach: after eleven there's no room left."}}
         ]
       },
 
@@ -613,9 +629,11 @@ const TRIPS = [
             {k:"road",       ema:10,  viti:10},
             {k:"sea",        ema:9.5, viti:8.5},
             {k:"landscape",  ema:9,   viti:9},
-            {k:"people",     ema:8.5, viti:8.5, note:{it:"la migliore finora, secondo Ema", en:"the best one so far, according to Ema"}},
+            {k:"people",     ema:8.5, viti:8.5, note:{it:"la migliore finora, di gran lunga", en:"the best one so far, by a distance"}},
             {k:"facilities", ema:10,  viti:10}
-          ]}
+          ],
+          comment:{it:"La nostra preferita, senza discussioni. Ci saremmo rimasti tutta la settimana.",
+                   en:"Our favourite, no argument. We could have stayed there all week."}}
         ]
       },
 
@@ -645,7 +663,9 @@ const TRIPS = [
             {k:"landscape",  ema:9.5, viti:9},
             {k:"people",     ema:4,   viti:4},
             {k:"facilities", ema:7,   viti:7,  note:{it:"voto tenuto basso apposta — un piccolo bar e il bagnasciuga, oltre avrebbe rovinato tutto", en:"kept deliberately low — one small bar and the shoreline; anything more would have spoiled it"}}
-          ]}
+          ],
+          comment:{it:"Vale ogni passo della discesa. Andateci presto però: a metà mattina la caletta è già piena di barche.",
+                   en:"Worth every step of the climb down. Go early though: by mid-morning the cove is already full of boats."}}
         ]
       },
 
@@ -677,7 +697,9 @@ const TRIPS = [
             {k:"landscape",  ema:9,  viti:8},
             {k:"people",     ema:4,  viti:4},
             {k:"facilities", ema:10, viti:10}
-          ]}
+          ],
+          comment:{it:"Acqua trasparente e tutti i servizi che vuoi. Peccato solo per la gente. E il cielo dell'eclissi ce lo ricorderemo a lungo.",
+                   en:"Clear water and everything you could want. Just a shame about the crowd. The eclipse sky, though, we'll remember for a long time."}}
         ]
       },
 
@@ -706,7 +728,9 @@ const TRIPS = [
             {k:"landscape",  ema:8.5, viti:7.5},
             {k:"people",     ema:9.5, viti:9},
             {k:"facilities", ema:10,  viti:10}
-          ]},
+          ],
+          comment:{it:"Ci siamo arrivati quasi per caso e l'abbiamo trovata quasi vuota. Sassi grossi: meglio le scarpette.",
+                   en:"We got here almost by accident and found it almost empty. Big pebbles — bring water shoes."}},
           { kind:"treat",
             label:{it:"Pausa gelato", en:"Gelato break"},
             name:"Pingo",
@@ -967,6 +991,7 @@ function card(c){
       ${ring}
     </div>
     ${rows}
+    ${c.comment ? `<div class="card-comment">${esc(t(c.comment))}</div>` : ''}
     ${c.body ? `<div class="card-body">${esc(t(c.body))}</div>` : ''}
     ${c.foot ? `<div class="card-foot">${esc(t(c.foot))}</div>` : ''}
   </section>`;
