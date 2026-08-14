@@ -2,12 +2,14 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Il nostro diario di viaggio — Croazia</title>
-<meta name="description" content="Diario di viaggio di Ema e Viti in Croazia: ristoranti e spiagge, valutati giorno per giorno.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Il nostro diario di viaggio</title>
+<meta name="description" content="Diario di viaggio di Ema e Viti — ristoranti e spiagge, valutati giorno per giorno.">
+<meta name="theme-color" content="#06323f">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
 
 <style>
-  /* ---------- font self-hosted, nessuna dipendenza esterna ---------- */
+  /* ============ font self-hosted, nessuna dipendenza esterna ============ */
   @font-face{ font-family:'Vollkorn'; font-style:normal; font-weight:400; src:url('fonts/Vollkorn-Regular.woff2') format('woff2'); font-display:swap; }
   @font-face{ font-family:'Vollkorn'; font-style:normal; font-weight:700; src:url('fonts/Vollkorn-Bold.woff2') format('woff2'); font-display:swap; }
   @font-face{ font-family:'Vollkorn'; font-style:italic; font-weight:400; src:url('fonts/Vollkorn-Italic.woff2') format('woff2'); font-display:swap; }
@@ -18,468 +20,1070 @@
   @font-face{ font-family:'JetBrains Mono'; font-style:normal; font-weight:500; src:url('fonts/JetBrainsMono-Medium.woff2') format('woff2'); font-display:swap; }
   @font-face{ font-family:'JetBrains Mono'; font-style:normal; font-weight:600; src:url('fonts/JetBrainsMono-SemiBold.woff2') format('woff2'); font-display:swap; }
 
+  /* ============ palette ============ */
   :root{
-    --navy:#123640;
-    --ink:#1c2b26;
-    --stone:#f4ecd8;
-    --stone-2:#e9dfc4;
-    --card:#fffdf6;
-    --coral:#df5b34;   /* Ema */
-    --teal:#1c7a76;    /* Viti */
-    --muted:#8a8368;
-    --line:#d9cfb0;
+    --sea-900:#06323f;
+    --sea-800:#0a4a5c;
+    --sea-600:#0d7f92;
+    --sea-500:#12a0b0;
+    --aqua-300:#5fd4cf;
+    --aqua-100:#c9f0ee;
+
+    --coral-700:#c2452c;
+    --coral-600:#e2573a;
+    --coral-400:#ff8a68;
+
+    --ink:#0c2a34;
+    --ink-soft:#345560;
+    --muted:#6a8792;
+
+    --bg:#eef7f8;
+    --surface:#ffffff;
+    --surface-2:#f7fcfc;
+    --sand:#fdf4e7;
+
+    --line:rgba(12,42,52,.10);
+    --line-2:rgba(12,42,52,.06);
+
+    --ema:var(--coral-600);
+    --viti:var(--sea-600);
+
+    --shadow-s:0 2px 8px -3px rgba(6,50,63,.18);
+    --shadow-m:0 14px 34px -20px rgba(6,50,63,.45), 0 2px 8px -4px rgba(6,50,63,.12);
+    --shadow-l:0 30px 60px -28px rgba(6,50,63,.55), 0 4px 14px -6px rgba(6,50,63,.14);
+
+    --r-s:12px; --r-m:18px; --r-l:26px; --r-xl:34px;
+    --nav-h:60px;
   }
+
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
     margin:0;
-    background:var(--stone);
+    background:var(--bg);
+    background-image:
+      radial-gradient(900px 500px at 8% -6%, rgba(95,212,207,.30), transparent 62%),
+      radial-gradient(760px 460px at 96% 4%, rgba(255,138,104,.18), transparent 60%);
+    background-attachment:fixed;
     color:var(--ink);
-    font-family:'Lato', sans-serif;
-    line-height:1.55;
+    font-family:'Lato', system-ui, sans-serif;
+    font-size:16px;
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
   }
-  a{color:inherit;}
+  a{color:inherit; text-decoration:none;}
+  button{font:inherit; color:inherit; border:0; background:none; cursor:pointer;}
+  img{display:block; max-width:100%;}
+  h1,h2,h3,h4{margin:0; font-family:'Vollkorn', Georgia, serif; font-weight:700; line-height:1.18;}
+  .mono{font-family:'JetBrains Mono', ui-monospace, monospace;}
 
-  header.hero{
-    position:relative;
-    padding:56px 24px 46px;
-    text-align:center;
-    background:var(--navy);
-    color:var(--stone);
-    overflow:hidden;
+  .wrap{width:100%; max-width:880px; margin:0 auto; padding:0 20px;}
+  .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}
+
+  /* ============ top bar ============ */
+  .topbar{
+    position:sticky; top:0; z-index:60;
+    height:var(--nav-h);
+    background:rgba(255,255,255,.72);
+    backdrop-filter:blur(16px) saturate(1.4);
+    -webkit-backdrop-filter:blur(16px) saturate(1.4);
+    border-bottom:1px solid var(--line-2);
+    transition:box-shadow .25s ease;
   }
-  header.hero::after{
-    content:"";
-    position:absolute;
-    left:0; right:0; bottom:-1px;
-    height:40px;
-    background:var(--stone);
-    -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'><path d='M0,30 C150,60 350,0 600,28 C850,56 1050,4 1200,30 L1200,60 L0,60 Z'/></svg>") bottom/100% 100%;
-    mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'><path d='M0,30 C150,60 350,0 600,28 C850,56 1050,4 1200,30 L1200,60 L0,60 Z'/></svg>") bottom/100% 100%;
+  .topbar.scrolled{box-shadow:0 6px 24px -18px rgba(6,50,63,.6);}
+  .topbar-in{
+    height:100%; display:flex; align-items:center; gap:14px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:9px;
+    font-family:'Vollkorn', serif; font-weight:700; font-size:16.5px;
+    letter-spacing:-.01em; color:var(--sea-900);
+    min-width:0;
+  }
+  .brand .mark{
+    width:28px; height:28px; border-radius:9px; flex:0 0 auto;
+    background:linear-gradient(145deg, var(--aqua-300), var(--sea-600) 70%);
+    display:grid; place-items:center; color:#fff;
+    box-shadow:var(--shadow-s);
+  }
+  .brand .mark svg{width:16px; height:16px;}
+  .brand span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .topbar .spacer{flex:1;}
+
+  .back-link{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:13px; color:var(--sea-800); font-weight:700;
+    padding:7px 12px 7px 9px; border-radius:100px;
+    background:rgba(255,255,255,.7); border:1px solid var(--line);
+    transition:background .18s ease, transform .18s ease;
+  }
+  .back-link:hover{background:#fff; transform:translateX(-2px);}
+  .back-link svg{width:14px; height:14px;}
+
+  /* lingua */
+  .lang{
+    display:inline-flex; padding:3px; gap:2px; flex:0 0 auto;
+    background:rgba(12,42,52,.07); border-radius:100px;
+  }
+  .lang button{
+    font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:600;
+    letter-spacing:.06em; text-transform:uppercase;
+    padding:5px 11px; border-radius:100px; color:var(--ink-soft);
+    transition:color .18s ease, background .18s ease, box-shadow .18s ease;
+  }
+  .lang button[aria-pressed="true"]{
+    background:var(--surface); color:var(--sea-800); box-shadow:var(--shadow-s);
+  }
+
+  /* ============ hero ============ */
+  .hero{
+    position:relative; overflow:hidden;
+    color:#eaf7f7;
+    background:linear-gradient(155deg, #04252f 0%, var(--sea-800) 42%, var(--sea-600) 78%, #14a3a0 100%);
+    padding:clamp(52px,9vw,96px) 0 clamp(80px,11vw,120px);
+    isolation:isolate;
+  }
+  .hero::before,.hero::after{
+    content:""; position:absolute; border-radius:50%; z-index:-1; filter:blur(48px);
+  }
+  .hero::before{width:420px;height:420px; top:-160px; right:-110px; background:rgba(95,212,207,.42);}
+  .hero::after{width:360px;height:360px; bottom:-180px; left:-120px; background:rgba(255,138,104,.34);}
+  .hero-wave{
+    position:absolute; left:0; right:0; bottom:-1px; height:clamp(38px,6vw,64px);
+    display:block; color:var(--bg);
   }
   .eyebrow{
-    font-family:'JetBrains Mono', monospace;
-    font-size:11.5px;
-    letter-spacing:.2em;
-    text-transform:uppercase;
-    color:#d7c9a3;
-    margin-bottom:14px;
+    display:inline-flex; align-items:center; gap:9px;
+    font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:500;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--aqua-100);
+    padding:7px 14px; border-radius:100px;
+    background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.16);
+    margin-bottom:20px;
   }
-  h1.title{
-    font-family:'Vollkorn', serif;
-    font-weight:700;
-    font-size:clamp(30px, 6vw, 46px);
-    margin:0 0 10px;
+  .hero h1{
+    font-size:clamp(34px,7.4vw,62px);
+    letter-spacing:-.02em; margin-bottom:16px; max-width:16ch;
   }
-  h1.title em{ font-style:italic; font-weight:400; color:#f0c9a0; }
-  .hero-sub{ font-size:15px; color:#cfe3df; max-width:440px; margin:0 auto; }
-  .legend{
-    display:inline-flex; gap:18px; margin-top:20px;
-    font-family:'JetBrains Mono', monospace; font-size:12px; color:#e9e2c9;
+  .hero h1 em{font-style:italic; font-weight:400; color:#ffcaa8;}
+  .hero p.lede{
+    font-size:clamp(15px,2.1vw,18.5px); color:#bfe4e6; max-width:52ch; margin:0;
   }
-  .legend span{display:inline-flex; align-items:center; gap:7px;}
-  .dot{width:9px; height:9px; border-radius:50%; display:inline-block;}
-  .dot.ema{background:var(--coral);}
-  .dot.viti{background:var(--teal);}
+  .hero .legend{
+    display:flex; flex-wrap:wrap; gap:10px; margin-top:28px;
+  }
+  .who{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; font-weight:700; letter-spacing:.01em;
+    padding:7px 15px 7px 9px; border-radius:100px;
+    background:rgba(255,255,255,.11); border:1px solid rgba(255,255,255,.18);
+    color:#fff;
+  }
+  .who i{width:11px; height:11px; border-radius:50%; display:block; box-shadow:0 0 0 3px rgba(255,255,255,.16);}
+  .who i.ema{background:var(--coral-400);}
+  .who i.viti{background:var(--aqua-300);}
 
-  nav.quicknav{
-    max-width:720px; margin:0 auto; padding:22px 20px 6px;
-    display:flex; gap:8px; overflow-x:auto;
+  /* ============ home: card viaggi ============ */
+  .section{padding:clamp(34px,6vw,58px) 0;}
+  .section-head{margin-bottom:24px;}
+  .section-head h2{font-size:clamp(23px,3.6vw,32px); letter-spacing:-.015em; color:var(--sea-900);}
+  .section-head p{margin:7px 0 0; color:var(--muted); font-size:15px;}
+
+  .trip-grid{display:grid; gap:20px;}
+  .trip-card{
+    position:relative; display:block; overflow:hidden;
+    border-radius:var(--r-xl); background:var(--surface);
+    box-shadow:var(--shadow-m);
+    transition:transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s ease;
   }
-  nav.quicknav a{
-    flex:0 0 auto; text-decoration:none;
-    font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.04em;
-    color:var(--navy); border:1px solid var(--line); padding:6px 13px;
-    border-radius:100px; background:var(--card);
+  .trip-card:hover{transform:translateY(-4px); box-shadow:var(--shadow-l);}
+  .trip-cover{position:relative; aspect-ratio:16/9; background:linear-gradient(140deg,var(--sea-600),var(--aqua-300));}
+  .trip-cover img{width:100%; height:100%; object-fit:cover;}
+  .trip-cover::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(4,37,47,.86) 4%, rgba(4,37,47,.30) 46%, rgba(4,37,47,.04) 78%);
+  }
+  .trip-cover-txt{
+    position:absolute; left:0; right:0; bottom:0; padding:24px 26px; z-index:2; color:#fff;
+  }
+  .trip-cover-txt .place{
+    font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--aqua-100); margin-bottom:8px;
+  }
+  .trip-cover-txt h3{font-size:clamp(26px,4.6vw,38px); letter-spacing:-.02em;}
+  .trip-meta{
+    display:flex; flex-wrap:wrap; align-items:center; gap:8px 20px;
+    padding:18px 26px 20px;
+  }
+  .meta-bit{display:inline-flex; align-items:center; gap:7px; font-size:13.5px; color:var(--ink-soft);}
+  .meta-bit svg{width:15px; height:15px; color:var(--sea-600); flex:0 0 auto;}
+  .trip-meta .go{
+    margin-left:auto; display:inline-flex; align-items:center; gap:7px;
+    font-size:13.5px; font-weight:700; color:var(--sea-700, var(--sea-600));
+  }
+  .trip-meta .go svg{width:15px; height:15px; transition:transform .25s ease;}
+  .trip-card:hover .go svg{transform:translateX(4px);}
+
+  .trip-soon{
+    border:1.5px dashed var(--line); border-radius:var(--r-xl);
+    padding:30px 26px; text-align:center; color:var(--muted); font-size:14.5px;
+    background:rgba(255,255,255,.45);
+  }
+  .trip-soon b{display:block; font-family:'Vollkorn',serif; font-size:18px; color:var(--ink-soft); margin-bottom:5px;}
+
+  /* ============ trip: barra giorni ============ */
+  .daybar{
+    position:sticky; top:var(--nav-h); z-index:50;
+    background:rgba(255,255,255,.80);
+    backdrop-filter:blur(16px) saturate(1.4);
+    -webkit-backdrop-filter:blur(16px) saturate(1.4);
+    border-bottom:1px solid var(--line-2);
+  }
+  .daybar-in{display:flex; gap:7px; overflow-x:auto; padding:11px 20px; scrollbar-width:none;}
+  .daybar-in::-webkit-scrollbar{display:none;}
+  .daychip{
+    flex:0 0 auto; display:inline-flex; align-items:baseline; gap:6px;
+    padding:7px 15px; border-radius:100px;
+    border:1px solid var(--line); background:var(--surface);
+    font-size:13px; font-weight:700; color:var(--ink-soft);
+    transition:all .2s ease;
+  }
+  .daychip .n{font-family:'JetBrains Mono',monospace; font-size:12px;}
+  .daychip:hover{border-color:var(--sea-500); color:var(--sea-800);}
+  .daychip.active{
+    background:linear-gradient(135deg, var(--sea-800), var(--sea-500));
+    border-color:transparent; color:#fff;
+    box-shadow:0 6px 16px -8px rgba(13,127,146,.9);
   }
 
-  main{max-width:720px; margin:0 auto; padding:8px 20px 80px;}
-  .timeline{position:relative; padding-left:38px;}
-  .timeline::before{
-    content:"";
-    position:absolute; left:13px; top:6px; bottom:6px; width:1px;
-    background-image:linear-gradient(var(--navy) 55%, transparent 0%);
-    background-size:2px 9px; background-repeat:repeat-y; opacity:.35;
+  /* ============ statistiche viaggio ============ */
+  .stats{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px;
+    margin-bottom:26px;
   }
-  .day{position:relative; margin-bottom:34px; scroll-margin-top:16px;}
-  .stamp{
-    position:absolute; left:-38px; top:0;
-    width:40px; height:40px; border-radius:50%;
-    border:1.5px dashed var(--navy);
-    display:flex; align-items:center; justify-content:center;
-    background:var(--stone);
-    font-family:'JetBrains Mono', monospace; font-weight:600; font-size:13px; color:var(--navy);
+  .stat{
+    background:var(--surface); border:1px solid var(--line-2); border-radius:var(--r-m);
+    padding:15px 16px; box-shadow:var(--shadow-s);
   }
-  .day-head{padding-left:56px; min-height:40px; display:flex; flex-direction:column; justify-content:center; margin-bottom:12px;}
-  .day-date{font-family:'Vollkorn', serif; font-size:18px; font-weight:700; color:var(--navy);}
-  .day-place{font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--coral); margin-top:2px;}
+  .stat .v{font-family:'JetBrains Mono',monospace; font-size:24px; font-weight:600; color:var(--sea-800); line-height:1.1;}
+  .stat .k{font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-top:5px;}
 
-  /* ---------- foto: segnaposto vuoto, nessuna dipendenza esterna ---------- */
-  .photos{
-    margin-left:56px;
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:6px;
-    margin-bottom:18px;
+  .highlights{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; margin-bottom:8px;}
+  .hl{
+    display:flex; align-items:center; gap:13px;
+    background:linear-gradient(140deg,#fff, var(--surface-2));
+    border:1px solid var(--line-2); border-radius:var(--r-m);
+    padding:14px 16px; box-shadow:var(--shadow-s);
   }
-  .photo-slot{
-    aspect-ratio:1/1;
-    border:1.5px dashed var(--line);
-    border-radius:10px;
-    display:flex; align-items:center; justify-content:center;
-    color:var(--muted);
-    font-size:10.5px;
-    text-align:center;
-    padding:6px;
+  .hl .ic{
+    width:38px; height:38px; border-radius:12px; flex:0 0 auto;
+    display:grid; place-items:center; color:#fff;
+  }
+  .hl.food .ic{background:linear-gradient(145deg,var(--coral-400),var(--coral-600));}
+  .hl.beach .ic{background:linear-gradient(145deg,var(--aqua-300),var(--sea-600));}
+  .hl .ic svg{width:19px; height:19px;}
+  .hl .txt{display:flex; flex-direction:column; min-width:0;}
+  .hl .k{display:block; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:2px;}
+  .hl .v{display:block; font-family:'Vollkorn',serif; font-weight:700; font-size:17px; line-height:1.25; color:var(--ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .hl .s{margin-left:auto; font-family:'JetBrains Mono',monospace; font-weight:600; font-size:17px; color:var(--sea-700,var(--sea-600));}
+
+  /* ============ giorno ============ */
+  .day{scroll-margin-top:calc(var(--nav-h) + 62px); margin-bottom:clamp(46px,7vw,74px);}
+  .day-head{display:flex; align-items:center; gap:15px; margin-bottom:20px;}
+  .day-badge{
+    width:52px; height:52px; flex:0 0 auto; border-radius:17px;
+    display:grid; place-items:center; color:#fff;
+    background:linear-gradient(145deg,var(--sea-800),var(--sea-500));
+    box-shadow:0 12px 24px -14px rgba(10,74,92,.95);
+    font-family:'JetBrains Mono',monospace; font-weight:600; font-size:19px;
+    letter-spacing:-.02em;
+  }
+  .day-head h3{font-size:clamp(22px,3.4vw,28px); letter-spacing:-.015em; color:var(--sea-900);}
+  .day-place{
+    display:inline-flex; align-items:center; gap:6px; margin-top:3px;
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.11em;
+    text-transform:uppercase; color:var(--coral-700);
+  }
+  .day-place svg{width:12px; height:12px;}
+
+  /* ---- galleria foto (grandi) ---- */
+  .gallery{display:grid; gap:10px; margin-bottom:20px;}
+  .gallery.n1{grid-template-columns:1fr;}
+  .gallery.n2{grid-template-columns:1fr 1fr;}
+  .gallery.n3{grid-template-columns:1fr 1fr;}
+  .gallery.n3 > :first-child{grid-column:1 / -1;}
+  .gallery.n4{grid-template-columns:1fr 1fr;}
+  .shot{
+    position:relative; overflow:hidden; border-radius:var(--r-l);
+    background:var(--surface-2); box-shadow:var(--shadow-m);
+    cursor:zoom-in; width:100%; padding:0; display:block;
+    aspect-ratio:4/5;
+  }
+  .gallery.n1 .shot, .gallery.n3 > :first-child{aspect-ratio:3/2;}
+  .shot img{
+    width:100%; height:100%; object-fit:cover;
+    transition:transform .55s cubic-bezier(.2,.7,.3,1);
+  }
+  .shot:hover img{transform:scale(1.045);}
+  .shot .cap{
+    position:absolute; left:0; right:0; bottom:0; padding:26px 16px 13px;
+    background:linear-gradient(to top, rgba(4,37,47,.80), transparent);
+    color:#fff; font-size:12.5px; line-height:1.4; text-align:left;
+    opacity:0; transform:translateY(6px); transition:all .3s ease;
+  }
+  .shot:hover .cap, .shot:focus-visible .cap{opacity:1; transform:none;}
+  @media (hover:none){ .shot .cap{opacity:1; transform:none;} }
+
+  /* ---- diario ---- */
+  .journal{
+    position:relative; margin-bottom:22px;
+    background:linear-gradient(140deg, var(--sand), #fffaf3);
+    border:1px solid rgba(226,87,58,.16); border-radius:var(--r-l);
+    padding:22px 24px 22px 26px;
+    font-family:'Vollkorn', serif; font-size:17px; line-height:1.68; color:#3d2f26;
+    box-shadow:var(--shadow-s);
+  }
+  .journal::before{
+    content:""; position:absolute; left:0; top:16px; bottom:16px; width:3px;
+    border-radius:3px; background:linear-gradient(var(--coral-400),var(--coral-600));
+  }
+  .journal .qm{
+    font-family:'Vollkorn',serif; font-size:13px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--coral-700); font-weight:700; display:block; margin-bottom:7px; opacity:.8;
   }
 
+  /* ---- card valutazione ---- */
   .card{
-    margin-left:56px; background:var(--card); border-radius:16px;
-    box-shadow:0 10px 26px -16px rgba(18,54,64,0.35);
-    border:1px solid rgba(18,54,64,0.06);
-    padding:20px 20px 6px; margin-bottom:16px;
+    background:var(--surface); border:1px solid var(--line-2); border-radius:var(--r-l);
+    box-shadow:var(--shadow-m); margin-bottom:16px; overflow:hidden;
   }
   .card-top{
-    display:flex; justify-content:space-between; align-items:flex-start;
-    border-bottom:1px solid var(--line); padding-bottom:12px; margin-bottom:14px;
+    display:flex; align-items:center; gap:14px;
+    padding:19px 22px; border-bottom:1px solid var(--line-2);
+    background:linear-gradient(150deg,#fff,var(--surface-2));
   }
-  .format-label{
-    font-family:'JetBrains Mono', monospace; font-size:10.5px;
-    letter-spacing:.12em; text-transform:uppercase; color:var(--teal); margin-bottom:5px;
+  .card-ic{
+    width:40px; height:40px; border-radius:13px; flex:0 0 auto;
+    display:grid; place-items:center; color:#fff;
   }
-  .card-top.beach .format-label{color:var(--coral);}
-  .venue-name{font-family:'Vollkorn', serif; font-size:21px; font-weight:700;}
-  .overall{text-align:right;}
-  .overall .num{font-family:'JetBrains Mono', monospace; font-size:23px; font-weight:600; color:var(--navy); line-height:1;}
-  .overall .lbl{font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted);}
+  .card-ic svg{width:20px; height:20px;}
+  .card.food .card-ic{background:linear-gradient(145deg,var(--coral-400),var(--coral-600));}
+  .card.beach .card-ic{background:linear-gradient(145deg,var(--aqua-300),var(--sea-600));}
+  .card.treat .card-ic{background:linear-gradient(145deg,#ffc978,#e79a3c);}
+  .card-title{min-width:0; flex:1;}
+  .card-kind{
+    display:block;
+    font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--muted); margin-bottom:3px;
+  }
+  .card.food .card-kind{color:var(--coral-700);}
+  .card.beach .card-kind{color:var(--sea-600);}
+  .card-name{display:block; font-family:'Vollkorn',serif; font-weight:700; font-size:20px; letter-spacing:-.01em; line-height:1.25;}
 
-  .row{padding:10px 0 18px;}
-  .row-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;}
-  .row-label{font-size:13.5px; font-weight:500;}
-  .row-scores{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted);}
-  .row-scores b.ema{color:var(--coral); font-weight:600;}
-  .row-scores b.viti{color:var(--teal); font-weight:600;}
-
-  .track{position:relative; height:5px; border-radius:3px; background:var(--stone-2);}
-  .tick{position:absolute; top:-3px; width:1px; height:11px; background:rgba(18,54,64,0.18);}
-  .pin{position:absolute; top:50%; width:12px; height:12px; border-radius:50%; border:2px solid var(--card); transform:translate(-50%,-50%); box-shadow:0 1px 3px rgba(0,0,0,0.25);}
-  .pin.ema{background:var(--coral); z-index:2;}
-  .pin.viti{background:var(--teal); z-index:1;}
-  .note{font-size:12.5px; color:var(--muted); font-style:italic; padding:0 0 16px; margin-top:-8px;}
-
-  .journal-slot{
-    margin-left:56px; margin-bottom:18px;
-    padding:13px 16px;
-    border-left:2px dashed var(--line);
-    color:var(--muted);
-    font-size:12.5px;
-    font-style:italic;
+  .ring{
+    position:relative; width:60px; height:60px; flex:0 0 auto; border-radius:50%;
+    background:conic-gradient(var(--rc) calc(var(--p) * 1%), rgba(12,42,52,.09) 0);
+    display:grid; place-items:center;
+  }
+  .ring::after{content:""; position:absolute; inset:5px; border-radius:50%; background:var(--surface);}
+  .ring > *{max-width:100%;}
+  .ring .val{
+    position:relative; z-index:1; font-family:'JetBrains Mono',monospace;
+    font-weight:600; font-size:15px; color:var(--sea-900); line-height:1;
+  }
+  .ring .lbl{
+    position:relative; z-index:1; font-size:7px; letter-spacing:.04em; text-transform:uppercase;
+    color:var(--muted); margin-top:2px; line-height:1;
   }
 
-  footer{text-align:center; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); letter-spacing:.05em; padding:20px 0 40px;}
+  .rows{padding:8px 22px 16px;}
+  .row{padding:13px 0 6px;}
+  .row + .row{border-top:1px solid var(--line-2);}
+  .row-top{display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:11px;}
+  .row-label{font-size:14.5px; font-weight:700; color:var(--ink-soft);}
+  .row-vals{display:inline-flex; align-items:center; gap:7px; flex:0 0 auto;}
+  .chip{
+    font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600;
+    padding:2.5px 9px; border-radius:100px; line-height:1.5;
+  }
+  .chip.ema{color:var(--coral-700); background:rgba(226,87,58,.10);}
+  .chip.viti{color:var(--sea-700,var(--sea-600)); background:rgba(13,127,146,.11);}
 
-  @media (max-width:480px){
-    .venue-name{font-size:19px;}
-    .card{padding:16px 14px 4px;}
+  .track{position:relative; height:6px; border-radius:100px; background:rgba(12,42,52,.075); margin:0 6px 6px;}
+  .track .span{position:absolute; top:0; bottom:0; border-radius:100px; background:linear-gradient(90deg, rgba(226,87,58,.30), rgba(13,127,146,.30)); }
+  .track .tick{position:absolute; top:-3px; width:1px; height:12px; background:rgba(12,42,52,.10);}
+  .pin{
+    position:absolute; top:50%; width:14px; height:14px; border-radius:50%;
+    transform:translate(-50%,-50%); border:2.5px solid var(--surface);
+    box-shadow:0 2px 6px rgba(6,50,63,.32);
+  }
+  .pin.ema{background:var(--coral-600); z-index:3;}
+  .pin.viti{background:var(--sea-600); z-index:2;}
+  .row-note{
+    font-family:'Vollkorn',serif; font-style:italic; font-size:14px; color:var(--muted);
+    padding:2px 6px 4px; line-height:1.5;
+  }
+
+  .card-body{padding:18px 22px 20px; font-size:15.5px; line-height:1.68; color:var(--ink-soft);}
+  .card-body + .card-foot{margin-top:-8px;}
+  .card-foot{
+    padding:0 22px 18px; font-size:12.5px; font-style:italic; color:var(--muted); line-height:1.5;
+  }
+
+  /* ---- lightbox ---- */
+  .lb{
+    position:fixed; inset:0; z-index:200; display:none;
+    background:rgba(4,25,32,.94);
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    align-items:center; justify-content:center; padding:20px;
+  }
+  .lb.open{display:flex;}
+  .lb img{max-width:100%; max-height:84vh; border-radius:14px; box-shadow:0 30px 70px -20px rgba(0,0,0,.8);}
+  .lb-cap{
+    position:absolute; left:0; right:0; bottom:22px; text-align:center; padding:0 24px;
+    color:#cfe6e8; font-size:13.5px;
+  }
+  .lb-x{
+    position:absolute; top:16px; right:16px; width:42px; height:42px; border-radius:50%;
+    background:rgba(255,255,255,.13); color:#fff; display:grid; place-items:center;
+  }
+  .lb-x:hover{background:rgba(255,255,255,.24);}
+  .lb-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:46px; height:46px; border-radius:50%;
+    background:rgba(255,255,255,.13); color:#fff; display:grid; place-items:center;
+  }
+  .lb-nav:hover{background:rgba(255,255,255,.24);}
+  .lb-nav.prev{left:14px;} .lb-nav.next{right:14px;}
+  .lb-nav svg,.lb-x svg{width:20px; height:20px;}
+
+  /* ---- torna su ---- */
+  .totop{
+    position:fixed; right:18px; bottom:18px; z-index:70;
+    width:46px; height:46px; border-radius:50%;
+    background:linear-gradient(145deg,var(--sea-800),var(--sea-500)); color:#fff;
+    display:grid; place-items:center; box-shadow:var(--shadow-m);
+    opacity:0; pointer-events:none; transform:translateY(10px);
+    transition:all .3s ease;
+  }
+  .totop.show{opacity:1; pointer-events:auto; transform:none;}
+  .totop svg{width:19px; height:19px;}
+
+  footer{
+    text-align:center; padding:40px 20px calc(46px + env(safe-area-inset-bottom));
+    color:var(--muted); font-size:13px;
+  }
+  footer .fmark{
+    font-family:'Vollkorn',serif; font-style:italic; font-size:17px; color:var(--ink-soft);
+    display:block; margin-bottom:6px;
+  }
+
+  /* animazione ingresso */
+  .rise{opacity:0; transform:translateY(16px);}
+  .rise.in{opacity:1; transform:none; transition:opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1);}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .rise,.rise.in{opacity:1; transform:none; transition:none;}
+    .shot img{transition:none;}
+  }
+
+  /* ============ mobile ============ */
+  @media (max-width:640px){
+    .wrap{padding:0 16px;}
+    .daybar-in{padding:10px 16px;}
+    .gallery.n2,.gallery.n3,.gallery.n4{grid-template-columns:1fr;}
+    .gallery .shot{aspect-ratio:4/5;}
+    .gallery.n3 > :first-child{aspect-ratio:4/5;}
+    .card-top{padding:16px 16px; gap:11px;}
+    .rows{padding:6px 16px 14px;}
+    .card-body,.card-foot{padding-left:16px; padding-right:16px;}
+    .journal{padding:19px 18px 19px 21px; font-size:16px;}
+    .trip-cover-txt{padding:20px;}
+    .trip-meta{padding:16px 20px 18px;}
+    .day-badge{width:46px; height:46px; font-size:17px; border-radius:15px;}
+    .ring{width:56px; height:56px;}
+    .ring .val{font-size:14px;}
+    .card-name{font-size:18px;}
+    .brand{font-size:15px;}
+    .stat .v{font-size:21px;}
   }
 </style>
 </head>
 <body>
 
-<header class="hero">
-  <div class="eyebrow">Diario di bordo</div>
-  <h1 class="title">Il nostro <em>diario</em> di viaggio</h1>
-  <p class="hero-sub">Croazia, estate 2026 — un ristorante e una spiaggia alla volta.</p>
-  <div class="legend">
-    <span><i class="dot ema"></i> Ema</span>
-    <span><i class="dot viti"></i> Viti</span>
-  </div>
-</header>
+<div id="app"></div>
 
-<nav class="quicknav">
-  <a href="#g9">9 Ago</a>
-  <a href="#g10">10 Ago</a>
-  <a href="#g11">11 Ago</a>
-  <a href="#g12">12 Ago</a>
-  <a href="#g13">13 Ago</a>
-</nav>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Foto">
+  <button class="lb-x" id="lbX" aria-label="Chiudi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <button class="lb-nav prev" id="lbP" aria-label="Precedente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+  <button class="lb-nav next" id="lbN" aria-label="Successiva"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+  <img id="lbImg" alt="">
+  <div class="lb-cap" id="lbCap"></div>
+</div>
 
-<main>
-  <div class="timeline">
-
-    <!-- GIORNO 9 -->
-    <div class="day" id="g9">
-      <div class="stamp">9</div>
-      <div class="day-head">
-        <div class="day-date">9 Agosto</div>
-        <div class="day-place">Vis, Croazia</div>
-      </div>
-
-      <div class="photos">
-        <div class="photo-slot">📷 aggiungi foto</div>
-        <div class="photo-slot">📷 aggiungi foto</div>
-        <div class="photo-slot">📷 aggiungi foto</div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div><div class="format-label">Quattro Ristoranti</div><div class="venue-name">Konoba Pavetta</div></div>
-          <div class="overall"><div class="num" data-overall></div><div class="lbl">media</div></div>
-        </div>
-        <div class="rows" data-rows='[
-          {"label":"Location","ema":7.5,"viti":7},
-          {"label":"Menù — offerta","ema":7,"viti":7},
-          {"label":"Menù — scelta","ema":9,"viti":7.5},
-          {"label":"Servizio","ema":6,"viti":6.5},
-          {"label":"Conto","ema":4,"viti":3}
-        ]'></div>
-      </div>
-
-      <div class="card">
-        <div class="card-top beach">
-          <div><div class="format-label">Quattro Spiagge</div><div class="venue-name">Komiža Beach</div></div>
-          <div class="overall"><div class="num" data-overall></div><div class="lbl">media</div></div>
-        </div>
-        <div class="rows" data-rows='[
-          {"label":"Strada per arrivare","ema":7,"viti":7,"note":"facile da raggiungere, ma non particolarmente bella"},
-          {"label":"Ambiente — acqua","ema":8.5,"viti":7.75},
-          {"label":"Ambiente — paesaggio","ema":7,"viti":7},
-          {"label":"Ambiente — persone","ema":5,"viti":5},
-          {"label":"Servizi","ema":8,"viti":7.5}
-        ]'></div>
-      </div>
-
-      <div class="journal-slot">Scrivete qui due righe sulla giornata, quando volete.</div>
-    </div>
-
-    <!-- GIORNO 10 -->
-    <div class="day" id="g10">
-      <div class="stamp">10</div>
-      <div class="day-head">
-        <div class="day-date">10 Agosto</div>
-        <div class="day-place">Vis, Croazia</div>
-      </div>
-
-      <div class="photos">
-        <div class="photo-slot">📷 aggiungi foto</div>
-        <div class="photo-slot">📷 aggiungi foto</div>
-        <div class="photo-slot">📷 aggiungi foto</div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div><div class="format-label">Quattro Ristoranti</div><div class="venue-name">Dal Mare</div></div>
-          <div class="overall"><div class="num" data-overall></div><div class="lbl">media</div></div>
-        </div>
-        <div class="rows" data-rows='[
-          {"label":"Location","ema":8,"viti":7.5},
-          {"label":"Menù — offerta","ema":9,"viti":7.75},
-          {"label":"Menù — scelta","ema":6,"viti":5},
-          {"label":"Servizio","ema":9,"viti":8.5},
-          {"label":"Conto","ema":4,"viti":3}
-        ]'></div>
-      </div>
-
-      <div class="card">
-        <div class="card-top beach">
-          <div><div class="format-label">Quattro Spiagge</div><div class="venue-name">Sbrerna</div></div>
-          <div class="overall"><div class="num" data-overall></div><div class="lbl">media</div></div>
-        </div>
-        <div class="rows" data-rows='[
-          {"label":"Strada per arrivare","ema":10,"viti":10},
-          {"label":"Spiaggia (mare)","ema":9.5,"viti":8.5},
-          {"label":"Ambiente — paesaggio","ema":9,"viti":9},
-          {"label":"Ambiente — persone","ema":8.5,"viti":8.5,"note":"la migliore finora, secondo Ema"},
-          {"label":"Servizi","ema":10,"viti":10}
-        ]'></div>
-      </div>
-
-      <div class="journal-slot">Scrivete qui due righe sulla giornata, quando volete.</div>
-    </div>
-
-    <!-- GIORNO 11 -->
-    <div class="day" id="g11">
-      <div class="stamp">11</div>
-      <div class="day-head">
-        <div class="day-date">11 Agosto</div>
-        <div class="day-place">Vis, Croazia</div>
-      </div>
-
-      <div class="photos">
-        <div class="photo-slot">📷 aggiungi foto</div>
-        <div class="photo-slot">📷 aggiungi foto</div>
-        <div class="photo-slot">📷 aggiungi foto</div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div><div class="format-label">Quattro Ristoranti</div><div class="venue-name">Rocky Fire</div></div>
-          <div class="overall"><div class="num" data-overall></div><div class="lbl">media</div></div>
-        </div>
-        <div class="rows" data-rows='[
-          {"label":"Location","ema":7,"viti":7},
-          {"label":"Menù — offerta","ema":7,"viti":7},
-          {"label":"Menù — scelta","ema":9,"viti":8},
-          {"label":"Servizio","ema":10,"viti":10},
-          {"label":"Conto","ema":5,"viti":5}
-        ]'></div>
-      </div>
-
-      <div class="card">
-        <div class="card-top beach">
-          <div><div class="format-label">Quattro Spiagge</div><div class="venue-name">Stiniva</div></div>
-          <div class="overall"><div class="num" data-overall></div><div class="lbl">media</div></div>
-        </div>
-        <div class="rows" data-rows='[
-          {"label":"Strada per arrivare","ema":7,"viti":7,"note":"discesa a mare impegnativa, ma la strada in motorino è bellissima"},
-          {"label":"Spiaggia (mare)","ema":9.5,"viti":8},
-          {"label":"Ambiente — paesaggio","ema":9.5,"viti":9},
-          {"label":"Ambiente — persone","ema":4,"viti":4},
-          {"label":"Servizi","ema":7,"viti":7,"note":"voto tenuto basso apposta — monbar e bagnasciuga, oltre avrebbe rovinato tutto"}
-        ]'></div>
-      </div>
-
-      <div class="journal-slot">Scrivete qui due righe sulla giornata, quando volete.</div>
-    </div>
-
-    <!-- GIORNO 12 -->
-    <div class="day" id="g12">
-      <div class="stamp">12</div>
-      <div class="day-head">
-        <div class="day-date">12 Agosto</div>
-        <div class="day-place">Vis, Croazia</div>
-      </div>
-
-      <div class="photos">
-        <img src="assets/photos/giorno12-1.jpg" alt="Eclissi parziale di sole vista dal mare, sulla strada tra Milna e Komiža" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
-        <img src="assets/photos/giorno12-2.jpg" alt="Spiaggia di Milna con acqua cristallina" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
-        <div class="photo-slot">📷 aggiungi foto</div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div><div class="format-label">Quattro Ristoranti</div><div class="venue-name">Podjoda</div></div>
-          <div class="overall"><div class="num" data-overall></div><div class="lbl">media</div></div>
-        </div>
-        <div class="rows" data-rows='[
-          {"label":"Location","ema":9,"viti":9},
-          {"label":"Menù — offerta","ema":8,"viti":8.5},
-          {"label":"Menù — scelta","ema":9,"viti":8},
-          {"label":"Servizio","ema":8,"viti":9},
-          {"label":"Conto","ema":4,"viti":5}
-        ]'></div>
-      </div>
-
-      <div class="card">
-        <div class="card-top beach">
-          <div><div class="format-label">Quattro Spiagge</div><div class="venue-name">Milna</div></div>
-          <div class="overall"><div class="num" data-overall></div><div class="lbl">media</div></div>
-        </div>
-        <div class="rows" data-rows='[
-          {"label":"Strada per arrivare","ema":10,"viti":10},
-          {"label":"Spiaggia (mare)","ema":9,"viti":8},
-          {"label":"Ambiente — paesaggio","ema":9,"viti":8},
-          {"label":"Ambiente — persone","ema":4,"viti":4},
-          {"label":"Servizi","ema":10,"viti":10}
-        ]'></div>
-      </div>
-
-      <div class="journal-slot">Spiaggia con acqua cristallina a Milna, e sulla strada che collega Milna a Komiža abbiamo avuto la fortuna di vedere l'eclissi parziale di sole — il cielo si è tinto d'arancio e per qualche minuto il sole è diventato una piccola falce rossa sull'orizzonte, sopra il mare.</div>
-    </div>
-
-    <!-- GIORNO 13 -->
-    <div class="day" id="g13">
-      <div class="stamp">13</div>
-      <div class="day-head">
-        <div class="day-date">13 Agosto</div>
-        <div class="day-place">Vis, Croazia</div>
-      </div>
-
-      <div class="photos">
-        <div class="photo-slot">📷 aggiungi foto</div>
-        <div class="photo-slot">📷 aggiungi foto</div>
-        <div class="photo-slot">📷 aggiungi foto</div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div><div class="format-label">Quattro Ristoranti</div><div class="venue-name">Pizzeria Karijola</div></div>
-          <div class="overall"><div class="num" data-overall></div><div class="lbl">media</div></div>
-        </div>
-        <div class="rows" data-rows='[
-          {"label":"Location","ema":7.5,"viti":7},
-          {"label":"Menù — offerta","ema":6.5,"viti":8},
-          {"label":"Menù — scelta","ema":8,"viti":8},
-          {"label":"Servizio","ema":9,"viti":9},
-          {"label":"Conto","ema":6.5,"viti":5}
-        ]'></div>
-      </div>
-
-      <div class="card">
-        <div class="card-top beach">
-          <div><div class="format-label">Quattro Spiagge</div><div class="venue-name">Kamenice</div></div>
-          <div class="overall"><div class="num" data-overall></div><div class="lbl">media</div></div>
-        </div>
-        <div class="rows" data-rows='[
-          {"label":"Strada per arrivare","ema":6.5,"viti":7},
-          {"label":"Spiaggia (mare)","ema":8,"viti":8.5},
-          {"label":"Ambiente — paesaggio","ema":8.5,"viti":7.5},
-          {"label":"Ambiente — persone","ema":9.5,"viti":9},
-          {"label":"Servizi","ema":10,"viti":10}
-        ]'></div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div><div class="format-label">Pausa Gelato</div><div class="venue-name">Pingo (nome da confermare)</div></div>
-        </div>
-        <div style="padding:0 0 18px; font-size:14px; line-height:1.65; color:var(--ink);">
-          Gelateria a Vis, quella che chiamiamo scherzosamente "Pino il Pinguino" — buonissima. Vittoria ha preso pistacchio, ricotta e fichi; Emanuele una variegata alla Nutella con ricotta e fichi. Ci è piaciuta moltissimo, e costava solo 2,50€ a fronte di una media di 6€ nelle altre gelaterie.
-        </div>
-        <div class="note">Non sono riuscito a verificare il nome esatto online (forse "Pingut" o "Pingo") — correggetelo voi se sapete come si chiama davvero.</div>
-      </div>
-
-      <div class="journal-slot">Scrivete qui due righe sulla giornata, quando volete.</div>
-    </div>
-
-  </div>
-</main>
-
-<footer>Isola di Vis</footer>
+<button class="totop" id="totop" aria-label="Torna su"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
 
 <script>
-  function fmt(n){ return Number.isInteger(n) ? n.toString() : n.toFixed(1).replace(/\.0$/,''); }
+/* =====================================================================
+   1. CONTENUTI  —  è QUI che si aggiungono giorni, foto, viaggi.
+   Ogni testo ha due versioni: it (italiano) e en (inglese).
+   ===================================================================== */
 
-  document.querySelectorAll('.rows').forEach(container => {
-    const data = JSON.parse(container.dataset.rows);
-    let sum = 0;
-    data.forEach(item => {
-      const avg = (item.ema + item.viti) / 2;
-      sum += avg;
-      const row = document.createElement('div');
-      row.className = 'row';
-      row.innerHTML = `
+/* Etichette dei voti, riutilizzabili. Aggiungerne di nuove è libero. */
+const L = {
+  location:   {it:"Location",              en:"Location"},
+  menuOffer:  {it:"Menù — offerta",        en:"Menu — the offering"},
+  menuChoice: {it:"Menù — scelta",         en:"Menu — what we ordered"},
+  service:    {it:"Servizio",              en:"Service"},
+  bill:       {it:"Conto",                 en:"The bill"},
+  road:       {it:"Strada per arrivare",   en:"Getting there"},
+  sea:        {it:"Spiaggia (mare)",       en:"The water"},
+  water:      {it:"Ambiente — acqua",      en:"Setting — the water"},
+  landscape:  {it:"Ambiente — paesaggio",  en:"Setting — landscape"},
+  people:     {it:"Ambiente — persone",    en:"Setting — the crowd"},
+  facilities: {it:"Servizi",               en:"Facilities"}
+};
+
+const TRAVELLERS = [
+  {key:"ema",  name:"Ema"},
+  {key:"viti", name:"Viti"}
+];
+
+const TRIPS = [
+  {
+    id: "croazia-2026",
+    cover: "assets/photos/giorno12-2.jpg",
+    coverAlt: {it:"Baia di Milna, isola di Vis", en:"Milna bay, island of Vis"},
+    title:    {it:"Croazia",        en:"Croatia"},
+    place:    {it:"Isola di Vis",   en:"Island of Vis"},
+    dates:    {it:"9 – 13 agosto 2026", en:"9 – 13 August 2026"},
+    lede:     {it:"Un ristorante e una spiaggia alla volta, votati ogni sera in due.",
+               en:"One restaurant and one beach at a time, scored together every evening."},
+
+    days: [
+      /* ---------------- 9 agosto ---------------- */
+      {
+        n: 9,
+        date:  {it:"9 agosto", en:"9 August"},
+        short: {it:"9 ago",    en:"9 Aug"},
+        place: {it:"Vis, Croazia", en:"Vis, Croatia"},
+        photos: [],
+        journal: null,
+        cards: [
+          { kind:"food", name:"Konoba Pavetta", rows:[
+            {k:"location",   ema:7.5, viti:7},
+            {k:"menuOffer",  ema:7,   viti:7},
+            {k:"menuChoice", ema:9,   viti:7.5},
+            {k:"service",    ema:6,   viti:6.5},
+            {k:"bill",       ema:4,   viti:3}
+          ]},
+          { kind:"beach", name:"Komiža", rows:[
+            {k:"road",       ema:7,   viti:7, note:{it:"facile da raggiungere, ma non particolarmente bella", en:"easy to reach, but nothing special"}},
+            {k:"water",      ema:8.5, viti:7.75},
+            {k:"landscape",  ema:7,   viti:7},
+            {k:"people",     ema:5,   viti:5},
+            {k:"facilities", ema:8,   viti:7.5}
+          ]}
+        ]
+      },
+
+      /* ---------------- 10 agosto ---------------- */
+      {
+        n: 10,
+        date:  {it:"10 agosto", en:"10 August"},
+        short: {it:"10 ago",    en:"10 Aug"},
+        place: {it:"Vis, Croazia", en:"Vis, Croatia"},
+        photos: [],
+        journal: null,
+        cards: [
+          { kind:"food", name:"Dal Mare", rows:[
+            {k:"location",   ema:8, viti:7.5},
+            {k:"menuOffer",  ema:9, viti:7.75},
+            {k:"menuChoice", ema:6, viti:5},
+            {k:"service",    ema:9, viti:8.5},
+            {k:"bill",       ema:4, viti:3}
+          ]},
+          { kind:"beach", name:"Sbrerna", rows:[
+            {k:"road",       ema:10,  viti:10},
+            {k:"sea",        ema:9.5, viti:8.5},
+            {k:"landscape",  ema:9,   viti:9},
+            {k:"people",     ema:8.5, viti:8.5, note:{it:"la migliore finora, secondo Ema", en:"the best one so far, according to Ema"}},
+            {k:"facilities", ema:10,  viti:10}
+          ]}
+        ]
+      },
+
+      /* ---------------- 11 agosto ---------------- */
+      {
+        n: 11,
+        date:  {it:"11 agosto", en:"11 August"},
+        short: {it:"11 ago",    en:"11 Aug"},
+        place: {it:"Vis, Croazia", en:"Vis, Croatia"},
+        photos: [],
+        journal: null,
+        cards: [
+          { kind:"food", name:"Rocky Fire", rows:[
+            {k:"location",   ema:7,  viti:7},
+            {k:"menuOffer",  ema:7,  viti:7},
+            {k:"menuChoice", ema:9,  viti:8},
+            {k:"service",    ema:10, viti:10},
+            {k:"bill",       ema:5,  viti:5}
+          ]},
+          { kind:"beach", name:"Stiniva", rows:[
+            {k:"road",       ema:7,   viti:7,  note:{it:"discesa a mare impegnativa, ma la strada in motorino è bellissima", en:"a tough scramble down to the sea, but the scooter ride there is gorgeous"}},
+            {k:"sea",        ema:9.5, viti:8},
+            {k:"landscape",  ema:9.5, viti:9},
+            {k:"people",     ema:4,   viti:4},
+            {k:"facilities", ema:7,   viti:7,  note:{it:"voto tenuto basso apposta — un piccolo bar e il bagnasciuga, oltre avrebbe rovinato tutto", en:"kept deliberately low — one small bar and the shoreline; anything more would have spoiled it"}}
+          ]}
+        ]
+      },
+
+      /* ---------------- 12 agosto ---------------- */
+      {
+        n: 12,
+        date:  {it:"12 agosto", en:"12 August"},
+        short: {it:"12 ago",    en:"12 Aug"},
+        place: {it:"Vis, Croazia", en:"Vis, Croatia"},
+        photos: [
+          {src:"assets/photos/giorno12-1.jpg", cap:{it:"L'eclissi parziale di sole sulla strada per Komiža", en:"The partial solar eclipse on the road to Komiža"}},
+          {src:"assets/photos/giorno12-2.jpg", cap:{it:"La baia di Milna, acqua trasparente fino al fondo", en:"Milna bay — water clear all the way down"}}
+        ],
+        journal: {
+          it:"Spiaggia con acqua cristallina a Milna, e sulla strada che collega Milna a Komiža abbiamo avuto la fortuna di vedere l'eclissi parziale di sole: il cielo si è tinto d'arancio e per qualche minuto il sole è diventato una piccola falce rossa sull'orizzonte, sopra il mare.",
+          en:"Crystal-clear water at Milna, and on the road linking Milna to Komiža we were lucky enough to catch the partial solar eclipse: the sky turned orange and for a few minutes the sun became a small red crescent on the horizon, just above the sea."
+        },
+        cards: [
+          { kind:"food", name:"Podjoda", rows:[
+            {k:"location",   ema:9, viti:9},
+            {k:"menuOffer",  ema:8, viti:8.5},
+            {k:"menuChoice", ema:9, viti:8},
+            {k:"service",    ema:8, viti:9},
+            {k:"bill",       ema:4, viti:5}
+          ]},
+          { kind:"beach", name:"Milna", rows:[
+            {k:"road",       ema:10, viti:10},
+            {k:"sea",        ema:9,  viti:8},
+            {k:"landscape",  ema:9,  viti:8},
+            {k:"people",     ema:4,  viti:4},
+            {k:"facilities", ema:10, viti:10}
+          ]}
+        ]
+      },
+
+      /* ---------------- 13 agosto ---------------- */
+      {
+        n: 13,
+        date:  {it:"13 agosto", en:"13 August"},
+        short: {it:"13 ago",    en:"13 Aug"},
+        place: {it:"Vis, Croazia", en:"Vis, Croatia"},
+        photos: [],
+        journal: null,
+        cards: [
+          { kind:"food", name:"Pizzeria Karijola", rows:[
+            {k:"location",   ema:7.5, viti:7},
+            {k:"menuOffer",  ema:6.5, viti:8},
+            {k:"menuChoice", ema:8,   viti:8},
+            {k:"service",    ema:9,   viti:9},
+            {k:"bill",       ema:6.5, viti:5}
+          ]},
+          { kind:"beach", name:"Kamenice", rows:[
+            {k:"road",       ema:6.5, viti:7},
+            {k:"sea",        ema:8,   viti:8.5},
+            {k:"landscape",  ema:8.5, viti:7.5},
+            {k:"people",     ema:9.5, viti:9},
+            {k:"facilities", ema:10,  viti:10}
+          ]},
+          { kind:"treat",
+            label:{it:"Pausa gelato", en:"Gelato break"},
+            name:"Pingo",
+            body:{
+              it:"La gelateria di Vis che chiamiamo scherzosamente «Pino il Pinguino»: buonissima. Viti ha preso pistacchio con ricotta e fichi, Ema la variegata alla Nutella con ricotta e fichi. Ci è piaciuta moltissimo — e costava 2,50 € contro i 6 € di media di tutte le altre.",
+              en:"The gelateria in Vis we jokingly call “Pino the Penguin” — outstanding. Viti went for pistachio with ricotta and figs, Ema for the Nutella swirl with ricotta and figs. We loved it, and it cost €2.50 against the €6 average everywhere else."
+            },
+            foot:{
+              it:"Il nome esatto è da confermare (forse «Pingut» o «Pingo»): non risulta online.",
+              en:"The exact name still needs confirming (maybe “Pingut” or “Pingo”) — it isn’t listed online."
+            }
+          }
+        ]
+      }
+    ]
+  }
+];
+
+/* =====================================================================
+   2. TESTI DELL'INTERFACCIA
+   ===================================================================== */
+const UI = {
+  brand:      {it:"Diario di viaggio",      en:"Travel diary"},
+  heroKicker: {it:"Diario di bordo",        en:"Logbook"},
+  heroTitle:  {it:'I nostri <em>viaggi</em>', en:'Our <em>travels</em>'},
+  heroLede:   {it:"Ogni sera votiamo il ristorante e la spiaggia della giornata. Questo è l'archivio, un viaggio alla volta.",
+               en:"Every evening we score the day's restaurant and beach. This is the archive, one trip at a time."},
+  tripsTitle: {it:"I viaggi",               en:"The trips"},
+  tripsSub:   {it:"Scegli un viaggio per aprire il diario giorno per giorno.",
+               en:"Pick a trip to open its day-by-day diary."},
+  open:       {it:"Apri il diario",         en:"Open the diary"},
+  soonTitle:  {it:"Il prossimo viaggio",    en:"The next trip"},
+  soonBody:   {it:"Qui comparirà il prossimo diario, appena partiamo.",
+               en:"The next diary will show up here, as soon as we set off."},
+  back:       {it:"Viaggi",                 en:"Trips"},
+  days:       {it:"giorni",                 en:"days"},
+  restaurants:{it:"ristoranti",             en:"restaurants"},
+  beaches:    {it:"spiagge",                en:"beaches"},
+  avg:        {it:"media viaggio",          en:"trip average"},
+  media:      {it:"media",                  en:"avg"},
+  bestFood:   {it:"Il ristorante migliore", en:"Best restaurant"},
+  bestBeach:  {it:"La spiaggia migliore",   en:"Best beach"},
+  kindFood:   {it:"Quattro Ristoranti",     en:"Four Restaurants"},
+  kindBeach:  {it:"Quattro Spiagge",        en:"Four Beaches"},
+  diary:      {it:"Il diario",              en:"From the diary"},
+  footer:     {it:"Scritto a quattro mani, un'isola alla volta.",
+               en:"Written by the two of us, one island at a time."}
+};
+
+/* =====================================================================
+   3. MOTORE DEL SITO — normalmente non serve toccare nulla qui sotto.
+   ===================================================================== */
+const ICON = {
+  food:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a2.2 2.2 0 0 0 4.4 0V3M8.2 11.2V21"/><path d="M17.2 3c-1.5 1.6-2.2 3.6-2.2 5.6 0 1.6.9 2.6 2.2 2.6s2.2-1 2.2-2.6c0-2-.7-4-2.2-5.6z"/><path d="M17.2 11.2V21"/></svg>',
+  beach:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.6" r="3.4"/><path d="M12 1.6v1.4M12 12.2v1.4M18 7.6h-1.4M7.4 7.6H6M16.3 3.3l-1 1M8.7 10.9l-1 1M16.3 11.9l-1-1M8.7 4.3l-1-1"/><path d="M2 18.4c1.7 0 1.7 1.6 3.3 1.6s1.7-1.6 3.4-1.6 1.7 1.6 3.3 1.6 1.7-1.6 3.3-1.6 1.7 1.6 3.4 1.6"/></svg>',
+  treat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7.6 10.4a4.4 4.4 0 0 1 8.8 0"/><path d="M6.8 11.4h10.4L12 21.6z"/></svg>',
+  pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10.5c0 5.5-8 12-8 12s-8-6.5-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10.5" r="2.8"/></svg>',
+  cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+  arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>',
+  arrowL:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6M11 6l-6 6 6 6"/></svg>',
+  wave:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 9c2.2 0 2.2 2 4.4 2S8.6 9 10.8 9s2.2 2 4.4 2 2.2-2 4.4-2"/><path d="M2 15c2.2 0 2.2 2 4.4 2s2.2-2 4.4-2 2.2 2 4.4 2 2.2-2 4.4-2"/></svg>'
+};
+
+let LANG = 'it';
+const app = document.getElementById('app');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const t  = o => (o && (o[LANG] ?? o.it)) || '';
+const fmt = n => Number.isInteger(n) ? String(n) : n.toFixed(2).replace(/0$/,'').replace(/\.$/,'');
+
+const cardAvg = c => !c.rows ? null : c.rows.reduce((s,r)=>s+(r.ema+r.viti)/2,0) / c.rows.length;
+const tripAvg = tr => {
+  const all = tr.days.flatMap(d => d.cards.filter(c=>c.rows).map(cardAvg));
+  return all.length ? all.reduce((a,b)=>a+b,0)/all.length : 0;
+};
+const countKind = (tr,k) => tr.days.reduce((s,d)=>s+d.cards.filter(c=>c.kind===k).length,0);
+const bestOf = (tr,k) => tr.days.flatMap(d=>d.cards.filter(c=>c.kind===k&&c.rows))
+  .map(c=>({name:c.name, avg:cardAvg(c)}))
+  .sort((a,b)=>b.avg-a.avg)[0];
+
+/* ---------- rotte:  #/it/croazia-2026  ---------- */
+function route(){
+  const parts = location.hash.replace(/^#\/?/,'').split('/').filter(Boolean);
+  let lang = 'it', trip = null;
+  if(parts[0]==='it' || parts[0]==='en'){ lang = parts.shift(); }
+  trip = parts[0] || null;
+  return {lang, trip};
+}
+function go(tripId){ location.hash = '/' + LANG + (tripId ? '/'+tripId : ''); }
+
+/* ---------- home ---------- */
+function viewHome(){
+  const cards = TRIPS.map(tr => `
+    <a class="trip-card rise" href="#/${LANG}/${tr.id}">
+      <div class="trip-cover">
+        ${tr.cover ? `<img src="${esc(tr.cover)}" alt="${esc(t(tr.coverAlt))}" loading="lazy" decoding="async">` : ''}
+        <div class="trip-cover-txt">
+          <div class="place mono">${esc(t(tr.place))}</div>
+          <h3>${esc(t(tr.title))}</h3>
+        </div>
+      </div>
+      <div class="trip-meta">
+        <span class="meta-bit">${ICON.cal}${esc(t(tr.dates))}</span>
+        <span class="meta-bit">${ICON.wave}${tr.days.length} ${esc(t(UI.days))}</span>
+        <span class="go">${esc(t(UI.open))}${ICON.arrow}</span>
+      </div>
+    </a>`).join('');
+
+  return `
+  <header class="topbar" id="topbar"><div class="wrap topbar-in">
+    <span class="brand"><span class="mark">${ICON.wave}</span><span>${esc(t(UI.brand))}</span></span>
+    <span class="spacer"></span>
+    ${langToggle()}
+  </div></header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">${esc(t(UI.heroKicker))}</div>
+      <h1>${t(UI.heroTitle)}</h1>
+      <p class="lede">${esc(t(UI.heroLede))}</p>
+      <div class="legend">
+        ${TRAVELLERS.map(p=>`<span class="who"><i class="${p.key}"></i>${esc(p.name)}</span>`).join('')}
+      </div>
+    </div>
+    <svg class="hero-wave" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0,32 C160,62 340,2 600,28 C860,54 1050,4 1200,30 L1200,60 L0,60 Z"/></svg>
+  </section>
+
+  <main class="wrap section">
+    <div class="section-head rise">
+      <h2>${esc(t(UI.tripsTitle))}</h2>
+      <p>${esc(t(UI.tripsSub))}</p>
+    </div>
+    <div class="trip-grid">
+      ${cards}
+      <div class="trip-soon rise"><b>${esc(t(UI.soonTitle))}</b>${esc(t(UI.soonBody))}</div>
+    </div>
+  </main>
+
+  <footer><span class="fmark">${esc(t(UI.footer))}</span></footer>`;
+}
+
+/* ---------- viaggio ---------- */
+function viewTrip(tr){
+  const bf = bestOf(tr,'food'), bb = bestOf(tr,'beach');
+
+  const chips = tr.days.map(d =>
+    `<a class="daychip" href="#g${d.n}" data-day="g${d.n}">${esc(t(d.short))}</a>`
+  ).join('');
+
+  const days = tr.days.map(d => `
+    <article class="day" id="g${d.n}">
+      <div class="day-head rise">
+        <div class="day-badge">${d.n}</div>
+        <div>
+          <h3>${esc(t(d.date))}</h3>
+          <div class="day-place">${ICON.pin}${esc(t(d.place))}</div>
+        </div>
+      </div>
+      ${gallery(d)}
+      ${d.journal ? `<div class="journal rise"><span class="qm">${esc(t(UI.diary))}</span>${esc(t(d.journal))}</div>` : ''}
+      ${d.cards.map(c=>card(c)).join('')}
+    </article>`).join('');
+
+  return `
+  <header class="topbar" id="topbar"><div class="wrap topbar-in">
+    <a class="back-link" href="#/${LANG}">${ICON.arrowL}${esc(t(UI.back))}</a>
+    <span class="brand"><span>${esc(t(tr.title))}</span></span>
+    <span class="spacer"></span>
+    ${langToggle()}
+  </div></header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">${ICON.pin.replace('<svg','<svg style="width:12px;height:12px"')} ${esc(t(tr.place))}</div>
+      <h1>${esc(t(tr.title))}</h1>
+      <p class="lede">${esc(t(tr.lede))}</p>
+      <div class="legend">
+        <span class="who" style="background:rgba(255,255,255,.11)">${esc(t(tr.dates))}</span>
+        ${TRAVELLERS.map(p=>`<span class="who"><i class="${p.key}"></i>${esc(p.name)}</span>`).join('')}
+      </div>
+    </div>
+    <svg class="hero-wave" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0,32 C160,62 340,2 600,28 C860,54 1050,4 1200,30 L1200,60 L0,60 Z"/></svg>
+  </section>
+
+  <nav class="daybar"><div class="daybar-in">${chips}</div></nav>
+
+  <main class="wrap section">
+    <div class="stats rise">
+      <div class="stat"><div class="v">${tr.days.length}</div><div class="k">${esc(t(UI.days))}</div></div>
+      <div class="stat"><div class="v">${countKind(tr,'food')}</div><div class="k">${esc(t(UI.restaurants))}</div></div>
+      <div class="stat"><div class="v">${countKind(tr,'beach')}</div><div class="k">${esc(t(UI.beaches))}</div></div>
+      <div class="stat"><div class="v">${fmt(Math.round(tripAvg(tr)*10)/10)}</div><div class="k">${esc(t(UI.avg))}</div></div>
+    </div>
+
+    <div class="highlights rise">
+      ${bf ? `<div class="hl food"><span class="ic">${ICON.food}</span><span class="txt"><span class="k">${esc(t(UI.bestFood))}</span><span class="v">${esc(bf.name)}</span></span><span class="s">${fmt(Math.round(bf.avg*10)/10)}</span></div>` : ''}
+      ${bb ? `<div class="hl beach"><span class="ic">${ICON.beach}</span><span class="txt"><span class="k">${esc(t(UI.bestBeach))}</span><span class="v">${esc(bb.name)}</span></span><span class="s">${fmt(Math.round(bb.avg*10)/10)}</span></div>` : ''}
+    </div>
+
+    <div style="height:26px"></div>
+    ${days}
+  </main>
+
+  <footer><span class="fmark">${esc(t(UI.footer))}</span>${esc(t(tr.place))} · ${esc(t(tr.dates))}</footer>`;
+}
+
+function gallery(d){
+  if(!d.photos || !d.photos.length) return '';
+  const n = Math.min(d.photos.length,4);
+  return `<div class="gallery n${n} rise">` + d.photos.map((p,i)=>`
+    <button class="shot" data-day="${d.n}" data-i="${i}" aria-label="${esc(t(p.cap)||'foto')}">
+      <img src="${esc(p.src)}" alt="${esc(t(p.cap))}" loading="lazy" decoding="async">
+      ${t(p.cap) ? `<span class="cap">${esc(t(p.cap))}</span>` : ''}
+    </button>`).join('') + `</div>`;
+}
+
+function card(c){
+  const kindLabel = c.label ? t(c.label)
+    : c.kind==='food' ? t(UI.kindFood)
+    : c.kind==='beach' ? t(UI.kindBeach) : '';
+  const avg = cardAvg(c);
+  const ringColor = c.kind==='food' ? 'var(--coral-600)' : c.kind==='beach' ? 'var(--sea-500)' : 'var(--sea-500)';
+
+  const ring = avg==null ? '' : `
+    <div class="ring" style="--p:${avg*10}; --rc:${ringColor}">
+      <span class="val">${fmt(Math.round(avg*10)/10)}</span>
+      <span class="lbl">${esc(t(UI.media))}</span>
+    </div>`;
+
+  const rows = !c.rows ? '' : `<div class="rows">` + c.rows.map(r=>{
+    const lo = Math.min(r.ema,r.viti)*10, hi = Math.max(r.ema,r.viti)*10;
+    const label = r.label ? t(r.label) : t(L[r.k] || {it:r.k,en:r.k});
+    return `
+      <div class="row">
         <div class="row-top">
-          <div class="row-label">${item.label}</div>
-          <div class="row-scores"><b class="ema">${fmt(item.ema)}</b> · <b class="viti">${fmt(item.viti)}</b></div>
+          <span class="row-label">${esc(label)}</span>
+          <span class="row-vals"><span class="chip ema">${fmt(r.ema)}</span><span class="chip viti">${fmt(r.viti)}</span></span>
         </div>
         <div class="track">
-          <div class="tick" style="left:0%"></div>
-          <div class="tick" style="left:50%"></div>
-          <div class="tick" style="left:100%"></div>
-          <div class="pin ema" style="left:${item.ema*10}%"></div>
-          <div class="pin viti" style="left:${item.viti*10}%"></div>
-        </div>`;
-      container.appendChild(row);
-      if(item.note){
-        const note = document.createElement('div');
-        note.className = 'note';
-        note.textContent = item.note;
-        container.appendChild(note);
-      }
-    });
-    container.closest('.card').querySelector('[data-overall]').textContent = fmt(sum / data.length);
+          <span class="span" style="left:${lo}%; width:${hi-lo}%"></span>
+          <span class="tick" style="left:0%"></span><span class="tick" style="left:50%"></span><span class="tick" style="left:100%"></span>
+          <span class="pin viti" style="left:${r.viti*10}%"></span>
+          <span class="pin ema" style="left:${r.ema*10}%"></span>
+        </div>
+        ${r.note ? `<div class="row-note">${esc(t(r.note))}</div>` : ''}
+      </div>`;
+  }).join('') + `</div>`;
+
+  return `
+  <section class="card ${c.kind} rise">
+    <div class="card-top">
+      <span class="card-ic">${ICON[c.kind]||ICON.treat}</span>
+      <span class="card-title">
+        ${kindLabel ? `<span class="card-kind">${esc(kindLabel)}</span>` : ''}
+        <span class="card-name">${esc(c.name)}</span>
+      </span>
+      ${ring}
+    </div>
+    ${rows}
+    ${c.body ? `<div class="card-body">${esc(t(c.body))}</div>` : ''}
+    ${c.foot ? `<div class="card-foot">${esc(t(c.foot))}</div>` : ''}
+  </section>`;
+}
+
+function langToggle(){
+  return `<span class="lang" role="group" aria-label="Lingua / Language">
+    <button data-lang="it" aria-pressed="${LANG==='it'}">it</button>
+    <button data-lang="en" aria-pressed="${LANG==='en'}">en</button>
+  </span>`;
+}
+
+/* ---------- render ---------- */
+let CURRENT_TRIP = null;
+
+function render(keepScroll){
+  const r = route();
+  LANG = r.lang;
+  document.documentElement.lang = LANG;
+  const tr = TRIPS.find(x=>x.id===r.trip);
+  CURRENT_TRIP = tr || null;
+
+  const y = window.scrollY;
+  app.innerHTML = tr ? viewTrip(tr) : viewHome();
+  document.title = tr
+    ? `${t(tr.title)} — ${t(UI.brand)}`
+    : (LANG==='it' ? "Il nostro diario di viaggio" : "Our travel diary");
+
+  wire();
+  if(keepScroll) window.scrollTo(0,y); else window.scrollTo(0,0);
+}
+
+function wire(){
+  /* lingua */
+  app.querySelectorAll('.lang button').forEach(b=>{
+    b.onclick = () => {
+      const r = route();
+      LANG = b.dataset.lang;
+      history.replaceState(null,'','#/'+LANG+(r.trip?'/'+r.trip:''));
+      render(true);
+    };
   });
+
+  /* barra sticky ombreggiata + torna su */
+  const bar = document.getElementById('topbar');
+  const top = document.getElementById('totop');
+  const onScroll = () => {
+    if(bar) bar.classList.toggle('scrolled', window.scrollY > 8);
+    top.classList.toggle('show', window.scrollY > 700);
+  };
+  window.removeEventListener('scroll', window.__ds); window.__ds = onScroll;
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* animazione ingresso */
+  const io = new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -8% 0px', threshold:.06});
+  app.querySelectorAll('.rise').forEach(el=>io.observe(el));
+
+  /* giorno attivo nella barra */
+  const chips = [...app.querySelectorAll('.daychip')];
+  if(chips.length){
+    const spy = new IntersectionObserver(es=>{
+      es.forEach(e=>{
+        if(e.isIntersecting){
+          chips.forEach(c=>c.classList.toggle('active', c.dataset.day===e.target.id));
+          const a = app.querySelector('.daychip.active');
+          if(a) a.scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
+        }
+      });
+    }, {rootMargin:'-28% 0px -62% 0px'});
+    app.querySelectorAll('.day').forEach(d=>spy.observe(d));
+  }
+
+  /* click sui chip: scorri senza sporcare l'indirizzo */
+  app.querySelectorAll('.daychip').forEach(c=>{
+    c.onclick = e => {
+      e.preventDefault();
+      const el = document.getElementById(c.dataset.day);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    };
+  });
+
+  /* lightbox */
+  app.querySelectorAll('.shot').forEach(s=>{
+    s.onclick = () => {
+      const day = CURRENT_TRIP.days.find(d=>String(d.n)===s.dataset.day);
+      openLb(day.photos, +s.dataset.i);
+    };
+  });
+}
+
+/* ---------- lightbox ---------- */
+const lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap');
+let lbSet = [], lbI = 0;
+function openLb(set,i){ lbSet=set; lbI=i; paintLb(); lb.classList.add('open'); document.body.style.overflow='hidden'; }
+function closeLb(){ lb.classList.remove('open'); document.body.style.overflow=''; }
+function paintLb(){
+  const p = lbSet[lbI]; if(!p) return;
+  lbImg.src = p.src; lbImg.alt = t(p.cap)||'';
+  lbCap.textContent = t(p.cap)||'';
+  const many = lbSet.length>1;
+  document.getElementById('lbP').style.display = many?'grid':'none';
+  document.getElementById('lbN').style.display = many?'grid':'none';
+}
+function step(d){ lbI = (lbI + d + lbSet.length) % lbSet.length; paintLb(); }
+document.getElementById('lbX').onclick = closeLb;
+document.getElementById('lbP').onclick = e => { e.stopPropagation(); step(-1); };
+document.getElementById('lbN').onclick = e => { e.stopPropagation(); step(1); };
+lb.onclick = e => { if(e.target===lb || e.target===lbImg) closeLb(); };
+document.addEventListener('keydown', e=>{
+  if(!lb.classList.contains('open')) return;
+  if(e.key==='Escape') closeLb();
+  if(e.key==='ArrowLeft') step(-1);
+  if(e.key==='ArrowRight') step(1);
+});
+
+document.getElementById('totop').onclick = () => window.scrollTo({top:0, behavior:'smooth'});
+
+/* ---------- avvio ---------- */
+window.addEventListener('hashchange', ()=>{
+  const h = location.hash;
+  if(/^#g\d+$/.test(h)){                 /* ancora a un giorno: non ridisegnare */
+    const el = document.getElementById(h.slice(1));
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    return;
+  }
+  render(false);
+});
+if(!location.hash) history.replaceState(null,'','#/it');
+render(false);
 </script>
 
 </body>
