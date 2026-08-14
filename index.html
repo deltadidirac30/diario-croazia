@@ -587,10 +587,15 @@ const TRIPS = [
         date:  {it:"9 agosto", en:"9 August"},
         short: {it:"9 ago",    en:"9 Aug"},
         place: {it:"Vis, Croazia", en:"Vis, Croatia"},
-        photos: [],
+        photos: [
+          {src:"assets/photos/giorno9-1.jpg", cap:{it:"In traghetto verso l'isola, con la scia dietro", en:"On the ferry out to the island, wake trailing behind"}},
+          {src:"assets/photos/giorno9-2.jpg", cap:{it:"Il porto di Vis all'ora del tramonto", en:"Vis harbour at sunset"}},
+          {src:"assets/photos/giorno9-3.jpg", cap:{it:"Gnocchi e carne in umido da Konoba Paveta", en:"Gnocchi and braised beef at Konoba Paveta"}},
+          {src:"assets/photos/giorno9-4.jpg", cap:{it:"Gnocchi al gorgonzola e noci", en:"Gnocchi with gorgonzola and walnuts"}}
+        ],
         journal: null,
         cards: [
-          { kind:"food", name:"Konoba Pavetta", rows:[
+          { kind:"food", name:"Konoba Paveta", rows:[
             {k:"location",   ema:7.5, viti:7},
             {k:"menuOffer",  ema:7,   viti:7},
             {k:"menuChoice", ema:9,   viti:7.5},
@@ -740,12 +745,12 @@ const TRIPS = [
             label:{it:"Pausa gelato", en:"Gelato break"},
             name:"Pingo",
             body:{
-              it:"La gelateria di Vis che chiamiamo scherzosamente «Pino il Pinguino»: buonissima. Viti ha preso pistacchio con ricotta e fichi, Ema la variegata alla Nutella con ricotta e fichi. Ci è piaciuta moltissimo — e costava 2,50 € contro i 6 € di media di tutte le altre.",
-              en:"The gelateria in Vis we jokingly call “Pino the Penguin” — outstanding. Viti went for pistachio with ricotta and figs, Ema for the Nutella swirl with ricotta and figs. We loved it, and it cost €2.50 against the €6 average everywhere else."
+              it:"La gelateria di Vis che chiamiamo scherzosamente «Pino il Pinguino»: buonissima. Abbiamo preso una coppa di pistacchio con ricotta e fichi e una variegata alla Nutella, anche quella con ricotta e fichi. Ci è piaciuta moltissimo — e ci è costata 2,50 € contro i 6 € di media di tutte le altre.",
+              en:"The gelateria in Vis we jokingly call “Pino the Penguin” — outstanding. We had one cup of pistachio with ricotta and figs and one Nutella swirl, also with ricotta and figs. We loved it, and it cost us €2.50 against the €6 average everywhere else."
             },
             foot:{
-              it:"Il nome esatto è da confermare (forse «Pingut» o «Pingo»): non risulta online.",
-              en:"The exact name still needs confirming (maybe “Pingut” or “Pingo”) — it isn’t listed online."
+              it:"Il nome esatto ci sfugge — forse «Pingut», forse «Pingo» — e online non lo troviamo.",
+              en:"We can't quite remember the exact name — maybe “Pingut”, maybe “Pingo” — and we can't find it online."
             }
           }
         ]
