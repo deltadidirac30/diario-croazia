@@ -377,6 +377,9 @@
   .card.food .card-ic{background:linear-gradient(145deg,var(--coral-400),var(--coral-600));}
   .card.beach .card-ic{background:linear-gradient(145deg,var(--aqua-300),var(--sea-600));}
   .card.treat .card-ic{background:linear-gradient(145deg,#ffc978,#e79a3c);}
+  .card.treat.sea .card-ic{background:linear-gradient(145deg,var(--aqua-300),var(--sea-600));}
+  .card.treat.sea .card-kind{color:var(--sea-600);}
+  .card.treat.sea .card-comment,.card.treat.sea .card-body{color:#22434e;}
   .card-title{min-width:0; flex:1;}
   .card-kind{
     display:block;
@@ -576,7 +579,7 @@ const TRIPS = [
     coverAlt: {it:"Baia di Milna, isola di Vis", en:"Milna bay, island of Vis"},
     title:    {it:"Croazia",        en:"Croatia"},
     place:    {it:"Isola di Vis",   en:"Island of Vis"},
-    dates:    {it:"9 – 14 agosto 2026", en:"9 – 14 August 2026"},
+    dates:    {it:"9 – 15 agosto 2026", en:"9 – 15 August 2026"},
     lede:     {it:"Un ristorante e una spiaggia alla volta, votati ogni sera in due.",
                en:"One restaurant and one beach at a time, scored together every evening."},
 
@@ -788,6 +791,28 @@ const TRIPS = [
           ],
           comment:{it:"La passeggiata per arrivarci è già metà del bello. Giornata perfetta, e nemmeno troppa gente.",
                    en:"The walk in is already half the pleasure. A perfect day, and not too crowded either."}}
+        ]
+      },
+
+      /* ---------------- 15 agosto ---------------- */
+      {
+        n: 15,
+        date:  {it:"15 agosto", en:"15 August"},
+        short: {it:"15 ago",    en:"15 Aug"},
+        place: {it:"Vis, Croazia", en:"Vis, Croatia"},
+        photos: [
+          {src:"assets/photos/giorno15-1.jpg", cap:{it:"I vigneti baciati dal sole del mattino, sulla strada per Milna", en:"Vineyards catching the morning sun, on the road to Milna"}}
+        ],
+        journal: null,
+        cards: [
+          { kind:"treat", icon:"beach", tone:"sea",
+            label:{it:"Come da tradizione", en:"As tradition demands"},
+            name:{it:"Ritorno a Milna", en:"Back to Milna"},
+            body:{
+              it:"L'ultimo giorno si torna sempre nella spiaggia che ci è piaciuta di più. Milna: acqua bellissima, comoda perché è di sabbia, e un paesaggio incantevole.",
+              en:"On the last day we always go back to the beach we liked best. Milna: beautiful water, easy underfoot because it's sand, and an enchanting landscape."
+            }
+          }
         ]
       }
     ]
@@ -1026,12 +1051,12 @@ function card(c){
   }).join('') + `</div>`;
 
   return `
-  <section class="card ${c.kind} rise">
+  <section class="card ${c.kind} ${c.tone||''} rise">
     <div class="card-top">
-      <span class="card-ic">${ICON[c.kind]||ICON.treat}</span>
+      <span class="card-ic">${ICON[c.icon||c.kind]||ICON.treat}</span>
       <span class="card-title">
         ${kindLabel ? `<span class="card-kind">${esc(kindLabel)}</span>` : ''}
-        <span class="card-name">${esc(c.name)}</span>
+        <span class="card-name">${esc(typeof c.name === 'string' ? c.name : t(c.name))}</span>
       </span>
       ${ring}
     </div>
