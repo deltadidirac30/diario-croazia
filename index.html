@@ -626,12 +626,15 @@ const TRIPS = [
         short: {it:"10 ago",    en:"10 Aug"},
         place: {it:"Vis, Croazia", en:"Vis, Croatia"},
         photos: [
-          {src:"assets/photos/giorno10-1.jpg", cap:{it:"In motorino verso Sbrerna", en:"Riding out to Sbrerna"}},
-          {src:"assets/photos/giorno10-2.jpg", cap:{it:"La baia di Sbrerna, con le barche alla fonda", en:"Sbrerna bay, with the boats at anchor"}},
-          {src:"assets/photos/giorno10-3.jpg", cap:{it:"Acqua bassa e trasparente fino ai sassi", en:"Shallow water, clear right down to the pebbles"}},
+          {src:"assets/photos/giorno10-1.jpg", cap:{it:"Emanuele e il suo bolide", en:"Emanuele and his mighty steed"}},
+          {src:"assets/photos/giorno10-2.jpg", cap:{it:"La baia di Sbrerna (abbiamo capito di aver bisogno di una barca)", en:"Sbrerna bay (this is where we realised we need a boat)"}},
+          {src:"assets/photos/giorno10-3.jpg", cap:{it:"Acqua bassa e trasparente", en:"Shallow, clear water"}},
           {src:"assets/photos/giorno10-4.jpg", cap:{it:"Il fondale a un passo dalla riva", en:"The seabed a step from the shore"}}
         ],
-        journal: null,
+        journal: {
+          it:"Secondo giorno, con una delle spiagge più belle dell'isola: immersa in un paesaggio a sé, circondata da una pineta. Acqua cristallina e fondale sassoso, quindi leggermente scomodo — se non siete spartani come noi, vi consigliamo di portarvi un materassino. Per non prendere il motorino, la sera siamo rimasti a Komiža e abbiamo cenato da Dal Mare: tutto fumo e niente arrosto (ancora devo digerire i calamari, cit. Ema).",
+          en:"Second day, and one of the finest beaches on the island: a landscape all of its own, ringed by a pine wood. Crystal-clear water and a pebbly bottom, so slightly uncomfortable — unless you're as spartan as us, bring an inflatable mat. To avoid taking the scooter we stayed in Komiža for the evening and had dinner at Dal Mare: all smoke and no roast (I still haven't digested the calamari, quoth Ema)."
+        },
         cards: [
           { kind:"food", name:"Dal Mare", rows:[
             {k:"location",   ema:8, viti:7.5},
@@ -647,8 +650,8 @@ const TRIPS = [
             {k:"people",     ema:8.5, viti:8.5, note:{it:"la migliore finora, di gran lunga", en:"the best one so far, by a distance"}},
             {k:"facilities", ema:10,  viti:10}
           ],
-          comment:{it:"La nostra preferita, senza discussioni. Ci saremmo rimasti tutta la settimana.",
-                   en:"Our favourite, no argument. We could have stayed there all week."}}
+          comment:{it:"La nostra preferita in termini di bellezza naturalistica. Ci saremmo rimasti tutta la settimana.",
+                   en:"Our favourite in terms of sheer natural beauty. We could have stayed there all week."}}
         ]
       },
 
@@ -977,7 +980,7 @@ function viewTrip(tr){
       </div>
       ${gallery(d)}
       ${d.journal ? `<div class="journal rise"><span class="qm">${esc(t(UI.diary))}</span>${esc(t(d.journal))}</div>` : ''}
-      ${d.cards.map(c=>card(c)).join('')}
+      ${ordered(d.cards).map(c=>card(c)).join('')}
     </article>`).join('');
 
   return `
@@ -1021,6 +1024,12 @@ function viewTrip(tr){
   </main>
 
   <footer><span class="fmark">${esc(t(UI.footer))}</span>${esc(t(tr.place))} · ${esc(t(tr.dates))}</footer>`;
+}
+
+/* le spiagge compaiono sempre prima dei ristoranti; il resto resta in fondo */
+function ordered(cards){
+  const rank = c => (c.kind==='beach' || c.icon==='beach') ? 0 : c.kind==='food' ? 1 : 2;
+  return cards.map((c,i)=>({c,i})).sort((a,b)=> rank(a.c)-rank(b.c) || a.i-b.i).map(x=>x.c);
 }
 
 function gallery(d){

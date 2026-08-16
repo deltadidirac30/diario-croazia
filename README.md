@@ -64,6 +64,11 @@ dopo, cambiando i valori:
 }
 ```
 
+> **Ordine delle schede:** dentro ogni giorno la spiaggia compare sempre prima del
+> ristorante, e le schede libere (gelateria, tradizioni…) restano in fondo — a
+> prescindere da come le scrivete in `cards`. Se una scheda libera deve stare in
+> cima con le spiagge, aggiungetele `icon:"beach"`.
+
 Ricordate la **virgola** tra un giorno e l'altro.
 La barra dei giorni, le medie e le statistiche si aggiornano da sole: non c'è
 nient'altro da toccare.
