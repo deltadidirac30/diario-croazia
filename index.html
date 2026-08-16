@@ -642,7 +642,9 @@ const TRIPS = [
             {k:"menuChoice", ema:6, viti:5},
             {k:"service",    ema:9, viti:8.5},
             {k:"bill",       ema:4, viti:3}
-          ]},
+          ],
+          comment:{it:"Non fatevi fuorviare dalle recensioni, e non fatevi catturare dalle cameriere.",
+                   en:"Don't be misled by the reviews — and don't let the waitresses reel you in."}},
           { kind:"beach", name:"Sbrerna", rows:[
             {k:"road",       ema:10,  viti:10},
             {k:"sea",        ema:9.5, viti:8.5},
@@ -650,8 +652,8 @@ const TRIPS = [
             {k:"people",     ema:8.5, viti:8.5, note:{it:"la migliore finora, di gran lunga", en:"the best one so far, by a distance"}},
             {k:"facilities", ema:10,  viti:10}
           ],
-          comment:{it:"La nostra preferita in termini di bellezza naturalistica. Ci saremmo rimasti tutta la settimana.",
-                   en:"Our favourite in terms of sheer natural beauty. We could have stayed there all week."}}
+          comment:{it:"La nostra preferita in termini di bellezza naturalistica.",
+                   en:"Our favourite in terms of sheer natural beauty."}}
         ]
       },
 
@@ -664,9 +666,12 @@ const TRIPS = [
         photos: [
           {src:"assets/photos/giorno11-1.jpg", cap:{it:"La caletta di Stiniva, chiusa fra le due pareti di roccia", en:"Stiniva cove, enclosed between the two rock walls"}},
           {src:"assets/photos/giorno11-2.jpg", cap:{it:"La falesia sopra Stiniva, con l'ultimo sole", en:"The cliff above Stiniva, catching the last sun"}},
-          {src:"assets/photos/giorno11-3.jpg", cap:{it:"Pesce in tecia con patate e riso, da Konoba Roki Fire", en:"Fish stew with potatoes and rice at Konoba Roki Fire"}}
+          {src:"assets/photos/giorno11-3.jpg", cap:{it:"Pesce in peka con patate e riso, da Konoba Roki Fire", en:"Fish cooked under the peka, with potatoes and rice, at Konoba Roki Fire"}}
         ],
-        journal: null,
+        journal: {
+          it:"La spiaggia di Stiniva è meravigliosa, ma per raggiungere questo gioiello serve una discesa impegnativa: servono scarpe chiuse, molta attenzione lungo il sentiero e niente zaini troppo pesanti.",
+          en:"Stiniva is a wonderful beach, but reaching this gem takes a demanding climb down: closed shoes, plenty of care on the path, and no heavy backpacks."
+        },
         cards: [
           { kind:"food", name:"Konoba Roki Fire", rows:[
             {k:"location",   ema:7,  viti:7},
@@ -674,16 +679,18 @@ const TRIPS = [
             {k:"menuChoice", ema:9,  viti:8},
             {k:"service",    ema:10, viti:10},
             {k:"bill",       ema:5,  viti:5}
-          ]},
+          ],
+          comment:{it:"Abbiamo finalmente provato la famosa peka, un metodo di cottura che ha più di cinquecento anni. Vale davvero la pena, e la scelta del pesce era azzeccata: nessuna spina e riso buonissimo.",
+                   en:"We finally tried the famous peka, a way of cooking that goes back more than five hundred years. Well worth it, and going for the fish was the right call: not a single bone, and superb rice."}},
           { kind:"beach", name:"Stiniva", rows:[
             {k:"road",       ema:7,   viti:7,  note:{it:"discesa a mare impegnativa, ma la strada in motorino è bellissima", en:"a tough scramble down to the sea, but the scooter ride there is gorgeous"}},
             {k:"sea",        ema:9.5, viti:8},
             {k:"landscape",  ema:9.5, viti:9},
             {k:"people",     ema:4,   viti:4},
-            {k:"facilities", ema:7,   viti:7,  note:{it:"voto tenuto basso apposta — un piccolo bar e il bagnasciuga, oltre avrebbe rovinato tutto", en:"kept deliberately low — one small bar and the shoreline; anything more would have spoiled it"}}
+            {k:"facilities", ema:8,   viti:8,  note:{it:"il piccolo bar è molto costoso, ma è anche vero che la spiaggia è praticamente inaccessibile", en:"the little bar is very expensive — though it's also true that the beach is practically unreachable"}}
           ],
-          comment:{it:"Vale ogni passo della discesa. Andateci presto però: a metà mattina la caletta è già piena di barche.",
-                   en:"Worth every step of the climb down. Go early though: by mid-morning the cove is already full of boats."}}
+          comment:{it:"Emanuele l'ha definita di una bellezza struggente: provoca il senso del sublime, ti lascia senza respiro. Andateci presto però: a metà mattina la caletta è già piena di barche.",
+                   en:"Emanuele called it achingly beautiful: it stirs a sense of the sublime and leaves you breathless. Go early though: by mid-morning the cove is already full of boats."}}
         ]
       },
 
@@ -708,16 +715,18 @@ const TRIPS = [
             {k:"menuChoice", ema:9, viti:8},
             {k:"service",    ema:8, viti:9},
             {k:"bill",       ema:4, viti:5}
-          ]},
+          ],
+          comment:{it:"Ristorantino elegante: meglio prenotare in anticipo. Vittoria è diventata la migliore amica del cameriere (il fascino dei croati…).",
+                   en:"An elegant little place: better to book ahead. Vittoria became the waiter's best friend (the charm of Croatian men…)."}},
           { kind:"beach", name:"Milna", rows:[
             {k:"road",       ema:10, viti:10},
             {k:"sea",        ema:9,  viti:8},
             {k:"landscape",  ema:9,  viti:8},
-            {k:"people",     ema:4,  viti:4},
+            {k:"people",     ema:6,  viti:6},
             {k:"facilities", ema:10, viti:10}
           ],
-          comment:{it:"Acqua trasparente e tutti i servizi che vuoi. Peccato solo per la gente. E il cielo dell'eclissi ce lo ricorderemo a lungo.",
-                   en:"Clear water and everything you could want. Just a shame about the crowd. The eclipse sky, though, we'll remember for a long time."}}
+          comment:{it:"Acqua trasparente e tutti i servizi che vuoi. Ce ne siamo innamorati: abbiamo deciso che un giorno compreremo una casa vista mare a Milna. E il cielo dell'eclissi ce lo ricorderemo a lungo.",
+                   en:"Clear water and everything you could want. We fell for it: we've decided that one day we'll buy a house with a sea view in Milna. And that eclipse sky we'll remember for a long time."}}
         ]
       },
 
@@ -728,7 +737,7 @@ const TRIPS = [
         short: {it:"13 ago",    en:"13 Aug"},
         place: {it:"Vis, Croazia", en:"Vis, Croatia"},
         photos: [
-          {src:"assets/photos/giorno13-1.jpg", cap:{it:"La baia di Kamenice, fondale visibile fino al largo", en:"Kamenice bay — you can see the bottom far out"}},
+          {src:"assets/photos/giorno13-1.jpg", cap:{it:"La baia di Kamenice", en:"Kamenice bay"}},
           {src:"assets/photos/giorno13-2.jpg", cap:{it:"Cena da Pizzeria Karijola: promossa", en:"Dinner at Pizzeria Karijola: approved"}}
         ],
         journal: null,
@@ -739,7 +748,9 @@ const TRIPS = [
             {k:"menuChoice", ema:8,   viti:8},
             {k:"service",    ema:9,   viti:9},
             {k:"bill",       ema:6.5, viti:5}
-          ]},
+          ],
+          comment:{it:"Rivedendo il sito prima di pubblicarlo, Emanuele ha aggiunto: «vorrei rimangiarmi quella pizza proprio adesso» (sono le dieci di mattina).",
+                   en:"Going over the site before publishing it, Emanuele added: “I'd like to eat that pizza again right now” (it's ten in the morning)."}},
           { kind:"beach", name:"Kamenice", rows:[
             {k:"road",       ema:6.5, viti:7},
             {k:"sea",        ema:8,   viti:8.5},
@@ -747,14 +758,14 @@ const TRIPS = [
             {k:"people",     ema:9.5, viti:9},
             {k:"facilities", ema:10,  viti:10}
           ],
-          comment:{it:"Ci siamo arrivati quasi per caso e l'abbiamo trovata quasi vuota. Sassi grossi: meglio le scarpette.",
-                   en:"We got here almost by accident and found it almost empty. Big pebbles — bring water shoes."}},
+          comment:{it:"Ci siamo arrivati quasi per caso e l'abbiamo trovata quasi vuota. Sassi grossi: meglio le scarpette. È molto naturalistica, e consigliamo di rimanere fino al tramonto per vedere il cielo tingersi di rosa e amore (questa frase non è AI, è di Vittoria).",
+                   en:"We got here almost by accident and found it almost empty. Big pebbles — bring water shoes. It's a very wild, natural spot, and we'd say stay until sunset, to watch the sky turn pink and full of love (that line isn't AI, it's Vittoria's)."}},
           { kind:"treat",
             label:{it:"Pausa gelato", en:"Gelato break"},
             name:"Pingo",
             body:{
-              it:"La gelateria di Vis che chiamiamo scherzosamente «Pino il Pinguino»: buonissima. Abbiamo preso una coppa di pistacchio con ricotta e fichi e una variegata alla Nutella, anche quella con ricotta e fichi. Ci è piaciuta moltissimo — e ci è costata 2,50 € contro i 6 € di media di tutte le altre.",
-              en:"The gelateria in Vis we jokingly call “Pino the Penguin” — outstanding. We had one cup of pistachio with ricotta and figs and one Nutella swirl, also with ricotta and figs. We loved it, and it cost us €2.50 against the €6 average everywhere else."
+              it:"È il bonus che diamo alla città di Vis. Vittoria lo ha definito uno dei migliori gelati della sua vita; Emanuele aggiunge che forse la dichiarazione è un tantino esagerata (ma è per questo che la ama) e che il pino pinguino è un top gusto alla Nutella. Abbiamo preso una coppa di pistacchio con ricotta e fichi e una variegata alla Nutella, anche quella con ricotta e fichi — e ci è costata 2,50 € contro i 6 € di media di tutte le altre.",
+              en:"This is the bonus point we award the town of Vis. Vittoria called it one of the best gelatos of her life; Emanuele adds that the claim is perhaps a touch overblown (but that's why he loves her) and that the pino pinguino is a top-tier Nutella flavour. We had one cup of pistachio with ricotta and figs and one Nutella swirl, also with ricotta and figs — and it cost us €2.50 against the €6 average everywhere else."
             },
             foot:{
               it:"Il nome esatto ci sfugge — forse «Pingut», forse «Pingo» — e online non lo troviamo.",
@@ -776,7 +787,10 @@ const TRIPS = [
           {src:"assets/photos/giorno14-3.jpg", cap:{it:"Noi due a Zaglav", en:"The two of us at Zaglav"}},
           {src:"assets/photos/giorno14-4.jpg", cap:{it:"Zuppa di sardine con polenta e bistecca di tonno, da Konoba Keya", en:"Sardine soup with polenta and tuna steak, at Konoba Keya"}}
         ],
-        journal: null,
+        journal: {
+          it:"Giornata molto rilassante: ne abbiamo approfittato per finire una trentina di parole crociate.",
+          en:"A very relaxed day: we took the chance to finish about thirty crosswords."
+        },
         cards: [
           { kind:"food", name:"Konoba Keya", rows:[
             {k:"location",   ema:9.25, viti:8.75},
@@ -785,8 +799,8 @@ const TRIPS = [
             {k:"service",    ema:10,   viti:9},
             {k:"bill",       ema:6.5,  viti:6.5}
           ],
-          comment:{it:"Abbiamo preso alici marinate, patè di pesce, bistecca di tonno, zuppa di sardine con la polenta, e un brownie con gelato per chiudere.",
-                   en:"We had marinated anchovies, fish pâté, tuna steak, sardine soup with polenta, and a brownie with ice cream to finish."}},
+          comment:{it:"La konoba si trova nel cuore più profondo dell'isola, immersa nella campagna: la strada è buia e tortuosa, ma ne vale davvero la pena. Attenti ai conigli… Abbiamo preso alici marinate, patè di pesce, bistecca di tonno, zuppa di sardine con la polenta, e un brownie con gelato per chiudere.",
+                   en:"The konoba sits in the deepest part of the island, out in the countryside: the road is dark and winding, but it really is worth it. Watch out for rabbits… We had marinated anchovies, fish pâté, tuna steak, sardine soup with polenta, and a brownie with ice cream to finish."}},
           { kind:"beach", name:"Zaglav", rows:[
             {k:"road",       ema:10,  viti:10, note:{it:"un chilometro a piedi da Milna, in mezzo alla natura, e poi lo scorcio si apre all'improvviso", en:"a kilometre on foot from Milna, through the scrub, and then the view suddenly opens up"}},
             {k:"sea",        ema:9,   viti:8.5},
