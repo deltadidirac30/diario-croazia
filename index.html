@@ -490,6 +490,34 @@
   .totop.show{opacity:1; pointer-events:auto; transform:none;}
   .totop svg{width:19px; height:19px;}
 
+  .intro{
+    position:relative; overflow:hidden;
+    margin:26px 0 6px;
+    padding:clamp(26px,4.5vw,38px) clamp(22px,4vw,40px);
+    border-radius:var(--r-xl);
+    background:linear-gradient(150deg, #ffffff 0%, var(--surface-2) 48%, #eaf8f7 100%);
+    border:1px solid rgba(13,127,146,.16);
+    box-shadow:var(--shadow-m);
+  }
+  .intro::before{
+    content:""; position:absolute; width:300px; height:300px; border-radius:50%;
+    top:-170px; left:-100px; background:rgba(95,212,207,.22); filter:blur(42px);
+  }
+  .intro > *{position:relative; z-index:1;}
+  .intro .kicker{
+    display:block; font-family:'JetBrains Mono',monospace; font-size:10px;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--sea-600);
+    margin-bottom:9px;
+  }
+  .intro h3{
+    font-size:clamp(24px,3.8vw,32px); letter-spacing:-.015em;
+    color:var(--sea-900); margin-bottom:16px;
+  }
+  .intro p{
+    margin:0 0 14px; font-size:16.5px; line-height:1.72; color:#2c4a54;
+  }
+  .intro p:last-child{margin-bottom:0;}
+
   .closing{
     position:relative; overflow:hidden;
     margin-top:8px;
@@ -622,6 +650,22 @@ const TRIPS = [
     dates:    {it:"9 – 15 agosto 2026", en:"9 – 15 August 2026"},
     lede:     {it:"Alla scoperta dell'isola di Vis.",
                en:"Discovering the island of Vis."},
+
+    /* riquadro introduttivo, in cima al diario del viaggio */
+    intro: {
+      kicker: {it:"Prima di cominciare", en:"Before we begin"},
+      title:  {it:"Perché proprio Vis", en:"Why Vis"},
+      body: [
+        {
+          it:"Vis ci ha colpito per la sua semplicità, per la sua bellezza umile, per le spiagge incontaminate e per il fatto di essere rimasta un'isola ancora poco turistica, dove si incontra vita autentica. Qui le persone lasciano i motorini sul bordo della strada con le chiavi attaccate, le porte di casa restano aperte, la gente è semplice. E per chi mi conosce: quest'isola, e chi la abita, rientrano in pieno nella definizione della teoria del pomodoro.",
+          en:"Vis struck us with its simplicity, its humble beauty, its unspoilt beaches, and the fact that it has stayed an island the crowds haven't found yet — a place where you still meet real life. Here people leave their scooters at the roadside with the keys in, front doors stay open, and everyone is unfussy. And for those who know me: this island, and the people who live on it, fall squarely under the tomato theory."
+        },
+        {
+          it:"Dopo cinque anni di relazione siamo tornati un po' a quella che fu la nostra prima vacanza in Grecia: un'isola piccola, un motorino scassato, la voglia di cantare a squarciagola tornando dal mare, la bellezza nascosta delle calette e tanto amore.",
+          en:"After five years together we found our way back to something like our first holiday in Greece: a small island, a battered scooter, the urge to sing at the top of our lungs on the way home from the sea, the hidden beauty of the coves, and a great deal of love."
+        }
+      ]
+    },
 
     /* riquadro di chiusura, in fondo al diario del viaggio */
     closing: {
@@ -1090,7 +1134,14 @@ function viewTrip(tr){
       ${bb ? `<div class="hl beach"><span class="ic">${ICON.beach}</span><span class="txt"><span class="k">${esc(t(UI.bestBeach))}</span><span class="v">${esc(bb.name)}</span></span><span class="s">${fmt(Math.round(bb.avg*10)/10)}</span></div>` : ''}
     </div>
 
-    <div style="height:26px"></div>
+    ${tr.intro ? `
+    <section class="intro rise">
+      <span class="kicker">${esc(t(tr.intro.kicker))}</span>
+      <h3>${esc(t(tr.intro.title))}</h3>
+      ${tr.intro.body.map(par=>`<p>${esc(t(par))}</p>`).join('')}
+    </section>` : ''}
+
+    <div style="height:34px"></div>
     ${days}
     ${tr.closing ? `
     <section class="closing rise">
