@@ -490,6 +490,46 @@
   .totop.show{opacity:1; pointer-events:auto; transform:none;}
   .totop svg{width:19px; height:19px;}
 
+  .closing{
+    position:relative; overflow:hidden;
+    margin-top:8px;
+    padding:clamp(30px,5vw,46px) clamp(22px,4vw,44px);
+    border-radius:var(--r-xl);
+    background:linear-gradient(150deg, #fff8ec 0%, var(--sand) 45%, #fdece0 100%);
+    border:1px solid rgba(226,87,58,.16);
+    box-shadow:var(--shadow-m);
+    text-align:center;
+  }
+  .closing::before{
+    content:""; position:absolute; width:280px; height:280px; border-radius:50%;
+    top:-150px; right:-90px; background:rgba(255,138,104,.16); filter:blur(38px);
+  }
+  .closing > *{position:relative; z-index:1;}
+  .closing .mark{
+    width:42px; height:42px; margin:0 auto 16px; border-radius:14px;
+    display:grid; place-items:center; color:#fff;
+    background:linear-gradient(145deg,#ffc07f,var(--coral-600));
+    box-shadow:0 12px 24px -14px rgba(194,69,44,.9);
+  }
+  .closing .mark svg{width:21px; height:21px;}
+  .closing .kicker{
+    display:block; font-family:'JetBrains Mono',monospace; font-size:10px;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--coral-700);
+    margin-bottom:10px;
+  }
+  .closing h3{
+    font-size:clamp(34px,6vw,52px); letter-spacing:-.02em; color:#7a3520;
+    margin-bottom:18px; font-style:italic; font-weight:400;
+  }
+  .closing p{
+    max-width:56ch; margin:0 auto; font-size:16.5px; line-height:1.72; color:#4a3529;
+  }
+  .closing .line{
+    margin-top:20px; padding-top:18px; border-top:1px solid rgba(194,69,44,.18);
+    font-family:'Vollkorn',serif; font-style:italic; font-size:17.5px;
+    line-height:1.65; color:#8a4a2e; max-width:48ch;
+  }
+
   footer{
     text-align:center; padding:40px 20px calc(46px + env(safe-area-inset-bottom));
     color:var(--muted); font-size:13px;
@@ -582,6 +622,20 @@ const TRIPS = [
     dates:    {it:"9 – 15 agosto 2026", en:"9 – 15 August 2026"},
     lede:     {it:"Alla scoperta dell'isola di Vis.",
                en:"Discovering the island of Vis."},
+
+    /* riquadro di chiusura, in fondo al diario del viaggio */
+    closing: {
+      kicker: {it:"Quello che ci portiamo a casa", en:"What we're taking home"},
+      word:   {it:"Fjaka", en:"Fjaka"},
+      body: {
+        it:"In Dalmazia la chiamano fjaka: quello stato di torpore beato in cui il corpo si arrende al caldo e la mente smette di chiedere qualcosa. Non è pigrizia — è un'arte, si tramanda di generazione in generazione, e da queste parti non se ne vergogna nessuno: il dolce far niente elevato a patrimonio culturale.",
+        en:"In Dalmatia they call it fjaka: that state of blissful torpor where the body gives in to the heat and the mind stops asking for anything. It isn't laziness — it's an art, handed down through the generations, and nobody here is ashamed of it: doing nothing, raised to the rank of cultural heritage."
+      },
+      line: {
+        it:"Ci siamo arrivati senza accorgercene, un pomeriggio qualunque: il sale addosso, l'ombra di un pino, e il tempo che smetteva di contare.",
+        en:"We got there without noticing, on an ordinary afternoon: salt on our skin, the shade of a pine, and time that had stopped counting."
+      }
+    },
 
     days: [
       /* ---------------- 9 agosto ---------------- */
@@ -1038,9 +1092,17 @@ function viewTrip(tr){
 
     <div style="height:26px"></div>
     ${days}
+    ${tr.closing ? `
+    <section class="closing rise">
+      <span class="mark">${ICON.wave}</span>
+      <span class="kicker">${esc(t(tr.closing.kicker))}</span>
+      <h3>${esc(t(tr.closing.word))}</h3>
+      <p>${esc(t(tr.closing.body))}</p>
+      <p class="line">${esc(t(tr.closing.line))}</p>
+    </section>` : ''}
   </main>
 
-  <footer><span class="fmark">${esc(t(UI.footer))}</span>${esc(t(tr.place))} · ${esc(t(tr.dates))}</footer>`;
+  <footer>${esc(t(tr.place))} · ${esc(t(tr.dates))}</footer>`;
 }
 
 /* le spiagge compaiono sempre prima dei ristoranti; il resto resta in fondo */
