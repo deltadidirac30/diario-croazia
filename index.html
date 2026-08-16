@@ -190,6 +190,50 @@
   .who i.ema{background:var(--coral-400);}
   .who i.viti{background:var(--aqua-300);}
 
+  /* ---- home: fondo caldo, così la testata sfuma senza stacchi ---- */
+  body.is-home{
+    background:#fbf7f2;
+    background-image:
+      radial-gradient(900px 500px at 8% -6%, rgba(226,180,158,.26), transparent 62%),
+      radial-gradient(760px 460px at 96% 4%, rgba(198,188,208,.20), transparent 60%);
+  }
+  body.is-home .hero-wave{color:#fbf7f2;}
+  body.is-home .section-head h2{color:#3d2b25;}
+  body.is-home .section-head p{color:#6b544b;}
+
+  /* ---- hero della home: sabbia e cipria, per viaggi di ogni tipo ---- */
+  .hero-home{
+    --sand-ink:#3d2b25;
+    --sand-soft:#6b544b;
+    --sand-terra:#96543a;
+    color:var(--sand-ink);
+    background:
+      linear-gradient(158deg, #fbf5ee 0%, #f8ece3 38%, #f4ded4 72%, #efd3ca 100%);
+  }
+  .hero-home::before{
+    width:460px; height:460px; top:-190px; right:-130px;
+    background:rgba(226,180,158,.42);
+  }
+  .hero-home::after{
+    width:380px; height:380px; bottom:-190px; left:-130px;
+    background:rgba(206,196,214,.38);
+  }
+  .hero-home .eyebrow{
+    color:#8a6350;
+    background:rgba(255,255,255,.58);
+    border-color:rgba(61,43,37,.14);
+  }
+  .hero-home h1{color:var(--sand-ink);}
+  .hero-home h1 em{color:var(--sand-terra);}
+  .hero-home p.lede{color:var(--sand-soft);}
+  .hero-home .who{
+    color:var(--sand-ink);
+    background:rgba(255,255,255,.62);
+    border-color:rgba(61,43,37,.14);
+  }
+  .hero-home .who i{box-shadow:0 0 0 3px rgba(255,255,255,.7);}
+  .hero-home .who i.viti{background:var(--sea-500);}
+
   /* ============ home: card viaggi ============ */
   .section{padding:clamp(34px,6vw,58px) 0;}
   .section-head{margin-bottom:24px;}
@@ -1058,7 +1102,7 @@ function viewHome(){
     ${langToggle()}
   </div></header>
 
-  <section class="hero">
+  <section class="hero hero-home">
     <div class="wrap">
       <div class="eyebrow">${esc(t(UI.heroKicker))}</div>
       <h1>${t(UI.heroTitle)}</h1>
@@ -1249,6 +1293,7 @@ function render(keepScroll){
   CURRENT_TRIP = tr || null;
 
   const y = window.scrollY;
+  document.body.classList.toggle('is-home', !tr);
   app.innerHTML = tr ? viewTrip(tr) : viewHome();
   document.title = tr
     ? `${t(tr.title)} — ${t(UI.brand)}`
