@@ -566,6 +566,10 @@
     font-family:'Vollkorn',serif; font-style:italic; font-size:17px; color:var(--ink-soft);
     display:block; margin-bottom:6px;
   }
+  footer .noai{
+    font-family:'Vollkorn',serif; font-style:italic; font-size:12.5px; color:var(--muted);
+    display:block; margin-top:14px; opacity:.75;
+  }
 
   /* animazione ingresso */
   .rise{opacity:0; transform:translateY(16px);}
@@ -982,7 +986,9 @@ const UI = {
   kindBeach:  {it:"Quattro Spiagge",        en:"Four Beaches"},
   diary:      {it:"Il diario",              en:"From the diary"},
   footer:     {it:"Scritto a quattro mani, un'isola alla volta.",
-               en:"Written by the two of us, one island at a time."}
+               en:"Written by the two of us, one island at a time."},
+  noAi:       {it:"Nessuna intelligenza artificiale ha scritto questo diario: è tutto frutto dei nostri cuori.",
+               en:"No artificial intelligence wrote this diary: it's entirely the work of our hearts."}
 };
 
 /* =====================================================================
@@ -1073,7 +1079,7 @@ function viewHome(){
     </div>
   </main>
 
-  <footer><span class="fmark">${esc(t(UI.footer))}</span></footer>`;
+  <footer><span class="fmark">${esc(t(UI.footer))}</span><span class="noai">${esc(t(UI.noAi))}</span></footer>`;
 }
 
 /* ---------- viaggio ---------- */
@@ -1153,7 +1159,7 @@ function viewTrip(tr){
     </section>` : ''}
   </main>
 
-  <footer>${esc(t(tr.place))} · ${esc(t(tr.dates))}</footer>`;
+  <footer>${esc(t(tr.place))} · ${esc(t(tr.dates))}<span class="noai">${esc(t(UI.noAi))}</span></footer>`;
 }
 
 /* le spiagge compaiono sempre prima dei ristoranti; il resto resta in fondo */
